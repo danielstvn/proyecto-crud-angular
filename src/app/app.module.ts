@@ -11,6 +11,10 @@ import { HomeComponent } from './home/home.component';
 import { UserRegisterComponent } from './logistic/user-register/user-register.component';
 import { ShippingPlanComponent } from './logistic/shipping-plan/shipping-plan.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShowCellarPortsComponent } from './cellar_ports/show-cellar-ports/show-cellar-ports.component';
+import { IndexShippingComponent } from './shipping/index-shipping/index-shipping.component';
+import { ShowShippingComponent } from './shipping/show-shipping/show-shipping.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +24,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavComponent,
     HomeComponent,
     UserRegisterComponent,
-    ShippingPlanComponent
+    ShippingPlanComponent,
+
+    ShowCellarPortsComponent,
+     IndexShippingComponent,
+     ShowShippingComponent,
+
   ],
   imports: [
     BrowserModule,

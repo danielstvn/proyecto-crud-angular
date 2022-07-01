@@ -1,0 +1,89 @@
+<div class="container">
+
+  
+    <div class="card mt-5">
+        <table class="table tabble-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Código</th>
+                <th scope="col">Nombre Bodega / Puerto</th>
+                <th scope="col">Almacenamiento</th>
+                <th scope="col">Pais</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Disponibilidad</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>
+
+                    <button class="btn btn-info " style="margin-right: 10px;" type="button" (click)="open(content)" >Ver</button>
+                    
+
+                </td>
+              </tr>
+              
+           
+            </tbody>
+          </table>
+    </div>
+
+
+
+</div>
+
+
+<!--MODAL Envios-->
+
+<ng-template #content let-c="close" let-d="dismiss" >
+    <div class="modal-header" >
+      <h4 class="modal-title" id="modal-basic-title"> Información de Envió </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+    
+      <!--datos del cliente-->
+      <div>
+
+        <h5>Datos del cliente:</h5>
+        <br>
+        
+        <p><strong> Cliente: </strong> Daniel Guancha </p>
+        <p><strong> Cedula: </strong> 100241616561</p>
+        <p><strong> Pais: </strong> Colombia </p>
+        <p><strong> Provincia: </strong> Nariño</p>
+        <p><strong> Ciudad: </strong> Pasto</p>
+        <p><strong> Domicilio: </strong> carrera 35 #24-24 barrrio santana </p>
+        <p><strong> Codigo Postal: </strong> 520008</p>
+
+
+        <br>
+        <h5>Datos del Envió:</h5>
+        <br>
+        
+        <p><strong> Cliente: </strong> Daniel Guancha </p>
+        <p><strong> Cedula: </strong> 100241616561</p>
+        <p><strong> Pais: </strong> Colombia </p>
+        <p><strong> Provincia: </strong> Nariño</p>
+        <p><strong> Ciudad: </strong> Pasto</p>
+        <p><strong> Domicilio: </strong> carrera 35 #24-24 barrrio santana </p>
+        <p><strong> Codigo Postal: </strong> 520008</p>
+
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cerrar</button>
+    </div>
+  </ng-template>
+

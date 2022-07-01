@@ -1,0 +1,285 @@
+<div class="container">
+
+    <div class="mt-5">
+        <button class="btn btn-info" (click)="open(content)" type="button">Crear un nuevo registro</button>
+    </div>
+
+
+    <div class="card mt-5">
+        <table class="table tabble-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Código</th>
+                <th scope="col">Nombre Bodega / Puerto</th>
+                <th scope="col">Almacenamiento</th>
+                <th scope="col">Pais</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Disponibilidad</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>Otto</td>
+                <td>
+
+                    <button class="btn btn-warning " style="margin-right: 10px;" type="button" (click)="open(contentEdit)" >Editar</button>
+                    <button class="btn btn-danger " type="button" (click)="open(contentDelete)" >Eliminar</button> 
+
+                </td>
+              </tr>
+              
+           
+            </tbody>
+          </table>
+    </div>
+
+
+
+</div>
+
+
+<!--MODAL REGISTRO DE BODEGAS Y PUERTOS-->
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Registro de Bodegas y Puertos</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      
+        <form>
+            <div class="form-row">
+
+                <!--selector de tipo de transporte-->
+                <div class="form-group col-md-10">
+                    <label for="inputState">Tipo de Almacenamiento</label>
+                    <select id="inputState" class="form-control">
+                      <option selected>Bodega</option>
+                      <option>Puerto</option>
+                    </select>
+                  </div>
+
+                   <!--registro de codigo bodega -puerto-->
+                <div class="form-group col-md-10 mt-4">
+                    <label for="location">Codigo Bodega / Puerto</label>
+                    <input type="text" class="form-control " id="location"  name="location" required >
+                </div>
+
+
+                <!--Nombre de la bodega-->
+                <div class="form-group col-md-10 mt-4">
+                    <label for="name">Nombre Bodega / Puerto</label>
+                    <input type="text" class="form-control " id="name" required >
+                </div>
+
+
+                <!--Registro de pais provincia y ciudad -->
+                <div class="row mt-4">
+
+                    <div class="form-group col">
+
+                        <label for="country">Pais:</label>
+                        <select class="form-control mt-2" id="country" name="country" required>
+                            <option selected>Pais</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        
+                    </div>
+    
+                    <div class="form-group col">
+
+                        <label for="province">Provincia:</label>
+                        <select class="form-control mt-2" id="province" name="province" required>
+                            <option selected>Provincia</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        
+                    </div>
+
+                    <div class="form-group col">
+
+                        <label for="city">Ciudad:</label>
+                        <select class="form-control mt-2" id="city" name="city" required>
+                            <option selected>ciudad</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        
+                    </div>
+                </div>
+
+                 <!--registro de ubicacion bodega -puerto-->
+                 <div class="form-group col-md-10 mt-4">
+                    <label for="location">Ubicación Bodega / Puerto</label>
+                    <input type="text" class="form-control " id="location"  name="location" required >
+                </div>
+
+                 <!--selector de tipo de disponibilidad-->
+                 <div class="form-group col-md-10 mt-4">
+                    <label for="inputState">Disponibilidad</label>
+                    <select id="inputState" class="form-control">
+                      <option selected>Nacional</option>
+                      <option>Internacional</option>
+                    </select>
+                  </div>
+
+              
+            </div>
+           
+          </form>
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Guardar</button>
+    </div>
+  </ng-template>
+
+
+
+<!--MODAL EDICION DE BODEGAS Y PUERTOS-->
+
+<ng-template #contentEdit let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Actualizar Bodegas y Puertos</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      
+        <form>
+            <div class="form-row">
+
+                <!--selector de tipo de transporte-->
+                <div class="form-group col-md-10">
+                    <label for="inputState">Tipo de Almacenamiento</label>
+                    <select id="inputState" class="form-control">
+                      <option selected>Bodega</option>
+                      <option>Puerto</option>
+                    </select>
+                  </div>
+
+                   <!--registro de codigo bodega -puerto-->
+                <div class="form-group col-md-10 mt-4">
+                    <label for="location">Codigo Bodega / Puerto</label>
+                    <input type="text" class="form-control " id="location"  name="location" required >
+                </div>
+
+
+                <!--Nombre de la bodega-->
+                <div class="form-group col-md-10 mt-4">
+                    <label for="name">Nombre Bodega / Puerto</label>
+                    <input type="text" class="form-control " id="name" required >
+                </div>
+
+
+                <!--Registro de pais provincia y ciudad -->
+                <div class="row mt-4">
+
+                    <div class="form-group col">
+
+                        <label for="country">Pais:</label>
+                        <select class="form-control mt-2" id="country" name="country" required>
+                            <option selected>Pais</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        
+                    </div>
+    
+                    <div class="form-group col">
+
+                        <label for="province">Provincia:</label>
+                        <select class="form-control mt-2" id="province" name="province" required>
+                            <option selected>Provincia</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        
+                    </div>
+
+                    <div class="form-group col">
+
+                        <label for="city">Ciudad:</label>
+                        <select class="form-control mt-2" id="city" name="city" required>
+                            <option selected>ciudad</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        
+                    </div>
+                </div>
+
+                 <!--registro de ubicacion bodega -puerto-->
+                 <div class="form-group col-md-10 mt-4">
+                    <label for="location">Ubicación Bodega / Puerto</label>
+                    <input type="text" class="form-control " id="location"  name="location" required >
+                </div>
+
+                 <!--selector de tipo de disponibilidad-->
+                 <div class="form-group col-md-10 mt-4">
+                    <label for="inputState">Disponibilidad</label>
+                    <select id="inputState" class="form-control">
+                      <option selected>Nacional</option>
+                      <option>Internacional</option>
+                    </select>
+                  </div>
+
+              
+            </div>
+           
+          </form>
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Guardar</button>
+    </div>
+  </ng-template>
+
+
+  <!--MODAL EDICION DE BODEGAS Y PUERTOS-->
+
+<ng-template #contentDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmación de Eliminación</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      
+        <form>
+            <div class="form-row">
+
+                <!--selector de tipo de transporte-->
+                <div class="form-group col-md-10">
+                   <h5>Esta seguro de eliminar el registro ?</h5>
+                  </div>          
+            </div>
+           
+          </form>
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')" style="margin-right: 10px;">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="c('Save click')">Eliminar</button>
+    </div>
+  </ng-template>
+
+  
+
