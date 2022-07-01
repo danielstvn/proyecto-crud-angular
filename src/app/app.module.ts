@@ -14,6 +14,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowCellarPortsComponent } from './cellar_ports/show-cellar-ports/show-cellar-ports.component';
 import { IndexShippingComponent } from './shipping/index-shipping/index-shipping.component';
 import { ShowShippingComponent } from './shipping/show-shipping/show-shipping.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -34,7 +36,10 @@ import { ShowShippingComponent } from './shipping/show-shipping/show-shipping.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule,
+    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

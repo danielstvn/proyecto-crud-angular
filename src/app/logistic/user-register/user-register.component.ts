@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+
+import { Client } from 'src/app/models/cliente/client';
+import { RegisterClientService } from 'src/app/service/register-client.service';
+
 
 @Component({
   selector: 'app-user-register',
@@ -8,11 +12,24 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserRegisterComponent implements OnInit {
 
-  model!:NgbDateStruct;
-  constructor() { }
+  client : Client = new Client();
+
+
+  constructor(private clienteService: RegisterClientService,private router: Router) { }
+
+  addClient(){
+    this.clienteService.addClient(this.client).subscribe(dato=>{
+      console.log(dato);
+    },error=>console.log(error));
+    
+  }
 
   ngOnInit(): void {
 
+  }
+  onSubmit(): void {
+   //console.log(this.client);
+   this.addClient();
   }
 
   

@@ -1,160 +1,133 @@
 <div class="container">
+    <form class="form" method="POST" (ngSubmit) ="onSubmit()">  
     
-    <div class="card mt-5">
-        <legend class="text-center header mt-3">Datos Personales</legend>
+        <div class="card mt-5">
+            <legend class="text-center header mt-3">Datos Personales</legend>
 
-        <div class="card-body">
-            <form class="form" method="POST">
-
-                <!-- Registro de nombres y apellidos-->
-                <div class="row">
-
-                    <div class="form-group col">
-                        <label for="name">Nombre Completo:</label>
-                        <input type="text" class="form-control mt-2" id="name" name="last-name" placeholder="Ejemplo: Juan " required>
-                    </div>
-    
-                    <div class="form-group col">
-                        <label for="last-name">Apellidos:</label>
-                        <input type="text" class="form-control mt-2" id="last-name" name="last-name" placeholder="Ejemplo: Perez" required>
-                    </div>
-
-                </div>
-
-
-                <!--Registro de email y telefono-->
-                <div class="row mt-4">
-
-                    <div class="form-group col">
-                        <label for="phone">Teléfono:</label>
-                        <input type="tel" pattern="[0-9]{10}"  id="phone" class="form-control mt-2" name="phone" placeholder="Ejemplo: 3211457856" required>
-                        
-                    </div>
-    
-                    <div class="form-group col">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control mt-2" id="email" name="email" placeholder="Ejemplo: juan@example.com" required>
-                    </div>
-                    
-                </div>
-
-                <!--Registro de cedula y fecha de expedicion-->
-                <div class="row mt-4">
-
-                    <div class="form-group col">
-
-                        <label for="type-dni">Tipo de Identidicación:</label>
-                        <select class="form-control mt-2" id="type-dni" name="type-dni" required>
-                            <option selected>tipo de Identificación </option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-
-                    <div class="form-group col">
-                        <label for="dni">Identificación:</label>
-                        <input type="tel" pattern="[0-9]{10}"  id="dni" class="form-control mt-2" name="dni" placeholder="Ejemplo: 1004254789" required>
-                        
-                    </div>
-
-                    <div class="form-group col">
-                        <label for="expedition-date">Fecha de expedición:</label>
-                       <div class="row">
-                           <div class="col">
-                                <input class="form-control" placeholder="yyyy-mm-dd" type="text"
-                                name="expedition-date"  ngbDatepicker #d="ngbDatepicker">
-                       
-                           </div>
-                           <div class="col">
-                            <button class="btn btn-outline-secondary calendar w-auto h-auto " (click)="d.toggle()" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
-                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                  </svg>
-                            </button>
-                           </div>
-                        
-                       </div>
-                        
-                    </div>  
-    
-                    
-                    
-                </div>
-
-                <!--Registro de pais provincia y ciudad -->
-                <div class="row mt-4">
-
-                    <div class="form-group col">
-
-                        <label for="country">Pais:</label>
-                        <select class="form-control mt-2" id="country" name="country" required>
-                            <option selected>Pais</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-    
-                    <div class="form-group col">
-
-                        <label for="province">Provincia:</label>
-                        <select class="form-control mt-2" id="province" name="province" required>
-                            <option selected>Provincia</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-
-                    <div class="form-group col">
-
-                        <label for="city">Ciudad:</label>
-                        <select class="form-control mt-2" id="city" name="city" required>
-                            <option selected>ciudad</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-                </div>
-
-                     <!--Registro domicilo y codigo postal-->
-                <div class="row mt-4 ">
-
-                    <div class="form-group col">
-                        <label for="address">Dirección de residencia:</label>
-                        <input type="text" id="addres" class="form-control mt-2" name="address" placeholder="Ejemplo: Carrera 35 #35-24, Barrio tejar" required>
-                        
-                    </div>
-    
-                    <div class="form-group col">
-                        <label for="postal_code">Código postal:</label>
-                        <input type="text" pattern="[0-9]{6}"  id="postal_code" class="form-control mt-2" name="postal_code" placeholder="Ejemplo: 520008">
-                    </div>
-                    
-                </div>
-                    
-               
-
+            <div class="card-body">
                 
-                    
-            </form>
-        </div>
 
-        <div class="card-footer mt-5">
-            <div class="col-md-12 text-center mt-4">
-                <a class="btn btn-secondary btn-lg m-5">Regresar</a>
-                <a class="btn btn-primary btn-lg" routerLink="shipping_plan" routerLinkActive="active" >Continuar</a>
+                    <!-- Registro de nombres y apellidos-->
+                    <div class="row">
+
+                        <div class="form-group col">
+                            <label for="name">Nombre Completo:</label>
+                            <input type="text" [(ngModel)]="client.name"  name="name" class="form-control mt-2" id="name"  placeholder="Ejemplo: Juan " required>
+                        </div>
+        
+                        <div class="form-group col">
+                            <label for="last-name">Apellidos:</label>
+                            <input type="text" [(ngModel)]="client.last_name" class="form-control mt-2" id="last-name" name="last-name" placeholder="Ejemplo: Perez" required>
+                        </div>
+
+                    </div>
+
+
+                    <!--Registro de email y telefono-->
+                    <div class="row mt-4">
+
+                        <div class="form-group col">
+                            <label for="phone">Teléfono:</label>
+                            <input type="text" [(ngModel)]="client.phone" pattern="[0-9]{10}"  id="phone" class="form-control mt-2" name="phone" placeholder="Ejemplo: 3211457856" required>
+                            
+                        </div>
+        
+                        <div class="form-group col">
+                            <label for="email">Email:</label>
+                            <input type="email" [(ngModel)]="client.email" class="form-control mt-2" id="email" name="email" placeholder="Ejemplo: juan@example.com" required>
+                        </div>
+                        
+                    </div>
+
+                    <!--Registro de cedula y fecha de expedicion-->
+                    <div class="row mt-4">
+
+                      
+
+                        <div class="form-group col">
+                            <label for="dni">Identificación:</label>
+                            <input type="text" [(ngModel)]="client.dni"  pattern="[0-9]{10}"  id="dni" class="form-control mt-2" name="dni" placeholder="Ejemplo: 1004254789" required>
+                            
+                        </div>
+
+                                        
+                        
+                    </div>
+
+                    <!--Registro de pais provincia y ciudad -->
+                    <div class="row mt-4">
+
+                        <div class="form-group col">
+
+                            <label for="country">Pais:</label>
+                            <select class="form-control mt-2" [(ngModel)]="client.country" id="country" name="country" required>
+                                <option selected>Pais</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            
+                        </div>
+        
+                        <div class="form-group col">
+
+                            <label for="province">Provincia:</label>
+                            <select class="form-control mt-2" [(ngModel)]="client.province" id="province" name="province" required>
+                                <option selected>Provincia</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            
+                        </div>
+
+                        <div class="form-group col">
+
+                            <label for="city">Ciudad:</label>
+                            <select class="form-control mt-2" [(ngModel)]="client.city" id="city" name="city" required>
+                                <option selected>ciudad</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+
+                        <!--Registro domicilo y codigo postal-->
+                    <div class="row mt-4 ">
+
+                        <div class="form-group col">
+                            <label for="address">Dirección de residencia:</label>
+                            <input type="text" id="addres" [(ngModel)]="client.location" class="form-control mt-2" name="address" placeholder="Ejemplo: Carrera 35 #35-24, Barrio tejar" required>
+                            
+                        </div>
+        
+                        <div class="form-group col">
+                            <label for="postal_code">Código postal:</label>
+                            <input type="text" pattern="[0-9]{6}" [(ngModel)]="client.postal_code"  id="postal_code" class="form-control mt-2" name="postal_code" placeholder="Ejemplo: 520008">
+                        </div>
+                        
+                    </div>
+                        
+                
+
+                    
+                        
+                
             </div>
 
+            <div class="card-footer mt-5">
+                <div class="col-md-12 text-center mt-4">
+                    <a class="btn btn-secondary btn-lg m-5">Regresar</a>
+                    <button class="btn btn-primary btn-lg" >Continuar</button>
+                </div>
+
+            </div>
+
+    
         </div>
-    </div>
+    </form>
 
 </div>
 
