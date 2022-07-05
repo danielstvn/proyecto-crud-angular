@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Client } from 'src/app/models/cliente/client';
 import { RegisterClientService } from 'src/app/service/register-client.service';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -14,8 +15,23 @@ export class UserRegisterComponent implements OnInit {
 
   client : Client = new Client();
 
+  formRegisterClient !: FormGroup;
 
-  constructor(private clienteService: RegisterClientService,private router: Router) { }
+
+  constructor(private clienteService: RegisterClientService,private router: Router, public formBuilder:FormBuilder) { 
+
+    this.formRegisterClient = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      last_name: ['', [Validators.required]],
+      email: ['', [Validators.required],[Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      dni: ['', [Validators.required]],
+      phone: ['', [Validators.required],[Validators.pattern("[0-9]{10}")]],
+      location: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      province: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+    });
+  }
 
   addClient(){
     this.clienteService.addClient(this.client).subscribe(dato=>{

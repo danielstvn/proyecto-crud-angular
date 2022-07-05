@@ -8,13 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class RegisterClientService {
 
+  url = 'http://localhost:8080/api/v1/registerUser'; //
+
   constructor(private httpClient: HttpClient) { }
 
-  url = 'http://localhost:8080/user_register'; ///user_register
 
   // este metodo registra un cliente
-  public addClient(cliente:Client): Observable<Object> {
-    return this.httpClient.post(`${this.url}`,cliente);
+  addClient(cliente: Client): Observable<Object> {
+    return this.httpClient.post(this.url,cliente);
 
   }
 

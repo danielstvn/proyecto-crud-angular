@@ -1,5 +1,4 @@
 export class Client { 
-
 	 id!: number;
 	 name!: String;
 	 last_name!: String;
