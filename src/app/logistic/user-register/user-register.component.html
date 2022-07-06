@@ -12,15 +12,16 @@
 
                         <div class="form-group col">
                             <label for="name">Nombre Completo:</label>
-                            <input type="text" [(ngModel)]="client.name" formControlName="name" [class.is-invalid] = "formRegisterClient.get('name')?.hasError('required') && formRegisterClient.get('name')?.touched" name="name" class="form-control mt-2" id="name"  placeholder="Ejemplo: Juan " required >
-                            <small *ngIf="formRegisterClient.get('name')cc"> Este Campo es requerido</small>
+                            <input type="text" [(ngModel)]="client.name" formControlName="name" [class.is-invalid] = "formRegisterClient.get('name')?.hasError('required') && formRegisterClient.get('name')?.touched" name="name" class="form-control mt-2" id="name"  >
+
+                            <small *ngIf="formRegisterClient.get('name')?.hasError('required') && formRegisterClient.get('name')?.touched"> Este Campo es requerido</small>
                         </div>
         
                         <div class="form-group col">
                             <label for="last-name">Apellidos:</label>
-                            <input type="text" [(ngModel)]="client.last_name" formControlName="last_name"  class="form-control mt-2" id="last-name" name="last-name" placeholder="Ejemplo: Perez" required>
+                            <input type="text" [(ngModel)]="client.last_name" formControlName="last_name" [class.is-invalid] = "formRegisterClient.get('last_name')?.hasError('required') && formRegisterClient.get('last_name')?.touched"  class="form-control mt-2" id="last-name" name="last-name" >
 
-                            <small *ngIf="formRegisterClient.get('last_name')?.hasError('required')"> Este Campo es requerido</small>
+                            <small *ngIf="formRegisterClient.get('last_name')?.hasError('required') && formRegisterClient.get('last_name')?.touched"> Este Campo es requerido</small>
                         </div>
 
                     </div>
@@ -31,19 +32,20 @@
 
                         <div class="form-group col">
                             <label for="phone">Teléfono:</label>
-                            <input type="text" [(ngModel)]="client.phone" formControlName="phone" pattern="[0-9]{10}"  id="phone" class="form-control mt-2" name="phone" placeholder="Ejemplo: 3211457856" required>
+                            <input type="text" [(ngModel)]="client.phone" formControlName="phone" [class.is-invalid] = "formRegisterClient.get('phone')?.hasError('required') && formRegisterClient.get('phone')?.touched && formRegisterClient.get('phone')?.hasError('pattern')"  id="phone" class="form-control mt-2" name="phone" >
 
-                            <small *ngIf="formRegisterClient.get('phone')?.hasError('required')"> Este Campo es requerido</small>
-                            <small *ngIf="formRegisterClient.get('phone')?.hasError('pattern')">Formato numerico max 10 digitos</small>
+                            <small *ngIf="formRegisterClient.get('phone')?.hasError('required') &&formRegisterClient.get('phone')?.touched"> Este Campo es requerido</small>
+                            <small *ngIf="formRegisterClient.get('phone')?.hasError('pattern') && formRegisterClient.get('phone')?.touched">Formato numerico max 10 digitos</small>
                             
                         </div>
         
                         <div class="form-group col">
                             <label for="email">Email:</label>
-                            <input type="email" [(ngModel)]="client.email" formControlName="email" class="form-control mt-2" id="email" name="email" placeholder="Ejemplo: juan@example.com" required>
+                            <input type="email" [(ngModel)]="client.email" formControlName="email" class="form-control mt-2" id="email" name="email" [class.is-invalid] = "formRegisterClient.get('email')?.hasError('required') && formRegisterClient.get('email')?.touched && formRegisterClient.get('email')?.hasError('pattern')">
 
-                            <small *ngIf="formRegisterClient.get('email')?.hasError('required')"> Este Campo es requerido</small>
-                            <small *ngIf="formRegisterClient.get('email')?.hasError('pattern')"> No corresponde a un formato de correo</small>
+                            <small *ngIf="formRegisterClient.get('email')?.hasError('required')  && formRegisterClient.get('email')?.touched"> Este Campo es requerido</small>
+                            
+                            <small *ngIf="formRegisterClient.get('email')?.hasError('pattern')  && formRegisterClient.get('email')?.touched"> No corresponde a un formato de correo</small>
                         </div>
                         
                     </div>  
@@ -55,9 +57,11 @@
 
                         <div class="form-group col">
                             <label for="dni">Identificación:</label>
-                            <input type="text" [(ngModel)]="client.dni" formControlName="dni"  pattern="[0-9]{10}"  id="dni" class="form-control mt-2" name="dni" placeholder="Ejemplo: 1004254789" required>
+                            <input type="text" [(ngModel)]="client.dni" formControlName="dni"  pattern="[0-9]{10}"  id="dni" class="form-control mt-2" name="dni" [class.is-invalid] = "formRegisterClient.get('dni')?.hasError('required')  && formRegisterClient.get('dni')?.hasError('pattern') && formRegisterClient.get('dni')?.touched">
 
-                            <small *ngIf="formRegisterClient.get('dni')?.hasError('required')"> Este Campo es requerido</small>
+                            <small *ngIf="formRegisterClient.get('dni')?.hasError('required') && formRegisterClient.get('dni')?.touched"> Este Campo es requerido</small>
+
+                            <small *ngIf="formRegisterClient.get('dni')?.hasError('pattern') && formRegisterClient.get('dni')?.touched"> Formato numérico</small>
                             
                         </div>
 
@@ -71,42 +75,42 @@
                         <div class="form-group col">
 
                             <label for="country">Pais:</label>
-                            <select class="form-control mt-2" [(ngModel)]="client.country" formControlName="country" id="country" name="country" required>
+                            <select class="form-control mt-2" [(ngModel)]="client.country" formControlName="country" id="country" name="country" [class.is-invalid] = "formRegisterClient.get('country')?.hasError('required') && formRegisterClient.get('country')?.touched">
                                 <option selected>Pais</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
 
-                            <small *ngIf="formRegisterClient.get('country')?.hasError('required')"> Este Campo es requerido</small>
+                            <small *ngIf="formRegisterClient.get('country')?.hasError('required') && formRegisterClient.get('country')?.touched"> Este Campo es requerido</small>
                             
                         </div>
         
                         <div class="form-group col">
 
                             <label for="province">Provincia:</label>
-                            <select class="form-control mt-2" [(ngModel)]="client.province" formControlName="province" id="province" name="province" required>
+                            <select class="form-control mt-2" [(ngModel)]="client.province" formControlName="province" id="province" name="province" [class.is-invalid] = "formRegisterClient.get('province')?.hasError('required') && formRegisterClient.get('province')?.touched">
                                 <option selected>Provincia</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
 
-                            <small *ngIf="formRegisterClient.get('province')?.hasError('required')"> Este Campo es requerido</small>
+                            <small *ngIf="formRegisterClient.get('province')?.hasError('required') && formRegisterClient.get('province')?.touched"> Este Campo es requerido</small>
                             
                         </div>
 
                         <div class="form-group col">
 
                             <label for="city">Ciudad:</label>
-                            <select class="form-control mt-2" [(ngModel)]="client.city" formControlName="city"  id="city" name="city" required>
+                            <select class="form-control mt-2" [(ngModel)]="client.city" formControlName="city"  id="city" name="city" [class.is-invalid] = "formRegisterClient.get('city')?.hasError('required') && formRegisterClient.get('city')?.touched">
                                 <option selected>ciudad</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
 
-                            <small *ngIf="formRegisterClient.get('city')?.hasError('required')"> Este Campo es requerido</small>
+                            <small *ngIf="formRegisterClient.get('city')?.hasError('required') && formRegisterClient.get('city')?.touched"> Este Campo es requerido</small>
                             
                         </div>
                     </div>
@@ -118,13 +122,18 @@
                             <label for="address">Dirección de residencia:</label>
                             <input type="text" id="addres" [(ngModel)]="client.location" formControlName="location" class="form-control mt-2" name="address" placeholder="Ejemplo: Carrera 35 #35-24, Barrio tejar" required>
 
-                            <small *ngIf="formRegisterClient.get('location')?.hasError('required')"> Este Campo es requerido</small>
+                            <small *ngIf="formRegisterClient.get('location')?.hasError('required') && formRegisterClient.get('location')?.touched"> Este Campo es requerido</small>
                             
                         </div>
         
                         <div class="form-group col">
                             <label for="postal_code">Código postal:</label>
-                            <input type="text" pattern="[0-9]{6}" [(ngModel)]="client.postal_code"  id="postal_code" class="form-control mt-2" name="postal_code" placeholder="Ejemplo: 520008">
+                            <input type="text" pattern="[0-9]{6}" [(ngModel)]="client.postal_code" formControlName="postal_code"   id="postal_code" class="form-control mt-2" name="postal_code" [class.is-invalid] = "formRegisterClient.get('postal_code')?.hasError('required') && formRegisterClient.get('postal_code')?.touched && formRegisterClient.get('postal_code')?.hasError('pattern') ">
+
+                            <small *ngIf="formRegisterClient.get('postal_code')?.hasError('pattern') && formRegisterClient.get('postal_code')?.touched"> Formato numérico máx 6 digitos</small>
+
+
+                            <small *ngIf="formRegisterClient.get('postal_code')?.hasError('required') && formRegisterClient.get('postal_code')?.touched"> Formato numérico máx 6 digitos</small>
                         </div>
                         
                     </div>
@@ -136,10 +145,19 @@
                 
             </div>
 
-            <div class="card-footer mt-5">
-                <div class="col-md-12 text-center mt-4">
-                    <a class="btn btn-secondary btn-lg m-5">Regresar</a>
-                    <button type="submit" class="btn btn-primary btn-lg" [disabled] = 'formRegisterClient.invalid'>Continuar</button>
+            <div class="card-footer ">
+                <div class="col-md-12 text-center mt-3" *ngIf="isSubmited == false">
+
+                    <button type="submit" class="btn btn-primary btn-lg" [disabled] = 'formRegisterClient.invalid' (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapseExample">Guardar</button>
+        
+                </div>
+
+                <div class="col-md-12 text-center mt-3" *ngIf="isSubmited == true">
+
+                    <button type="submit" class="btn btn-warning btn-lg" [disabled] = 'formRegisterClient.invalid' 
+                        aria-controls="collapseExample">Actualizar</button> 
+                    
                 </div>
 
             </div>
@@ -150,5 +168,164 @@
 
 
 
+
 </div>
+
+
+<!--SEGUNDO FORMULARIO-->
+
+
+<div class="container" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    
+    <div class="card mt-5">
+        <legend class="text-center header mt-3">Información de Envió</legend>
+
+        <div class="card-body">
+            <form  [formGroup]="formRegisterClient"  class="form" method="POST" (ngSubmit) ="onUpdate()" autocomplete="off" novalidate>
+
+                <div class="row ">
+                    <div class="form-group col">
+                        <label for="city">Logistica:</label>
+                        <select class="form-control mt-2" id="city" name="city" required>
+                            <option selected>Terrestre</option>
+                            <option value="1">Maritima</option>
+                    
+                        </select>
+                      </div>
+                </div>
+
+
+                <!-- Registro tipo de producto y cantidad de producto-->
+                <div class="row mt-5">
+
+                    <div class="form-group col">
+                        <label for="type-product">Tipo de producto:</label>
+                        <input type="text" class="form-control mt-2" id="type-product" placeholder="Tipo de producto" name="type-product" required>
+                    </div>
+    
+                    <div class="form-group col">
+                        <label for="quantity-product">Cantidad del producto:</label>
+                        <input type="text" class="form-control mt-2" id="quantity-product" placeholder="Cantidad del producto" name="quantity-product" required>
+                    </div>
+
+                </div>
+
+
+                <!--Fecha de resgistro -->
+                <div class="row mt-4">
+
+                    <div class="form-group col">
+                        <label for="register-date">Fecha de registro:</label>
+                       <div class="row">
+                           <div class="col">
+                                <input class="form-control" placeholder="yyyy-mm-dd" type="text"
+                                name="register-date"  ngbDatepicker #d2="ngbDatepicker">
+                       
+                           </div>
+                           <div class="col">
+                            <button class="btn btn-outline-secondary calendar w-auto h-auto " (click)="d2.toggle()" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                  </svg>
+                            </button>
+                           </div>
+                        
+                       </div>
+                        
+                    </div>  
+
+                    <!--fecha de  entrega -->
+                    <div class="form-group col">
+                        <label for="delivery-date">Fecha de entrega:</label>
+                       <div class="row">
+                           <div class="col">
+                                <input class="form-control" placeholder="yyyy-mm-dd" type="text"
+                                name="delivery-date"  ngbDatepicker #d3="ngbDatepicker">
+                       
+                           </div>
+                           <div class="col">
+                            <button class="btn btn-outline-secondary calendar w-auto h-auto " (click)="d3.toggle()" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                  </svg>
+                            </button>
+                           </div>
+                        
+                       </div>
+                        
+                    </div>  
+                    
+                </div>
+
+                
+                <div class="row mt-4">
+
+                    <!--Bodega de entrega-->
+
+                    <div class="form-group col">
+
+                        <label for="cellar-delivery">Bodega de entrega:</label>
+                        <select class="form-control mt-2" id="cellar-delivery" name="cellar-delivery" required>
+                            <option selected>--- </option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="dni">Precio de envió:</label>
+                        <input type="tel" pattern="[0-9]{16}"  id="dni" class="form-control mt-2" name="dni" placeholder="$000.000.000" required>
+                        
+                    </div>
+
+                   
+    
+                    
+                    
+                </div>
+
+         
+               <!---->
+
+                     
+                <div class="row mt-4 ">
+
+                    <div class="form-group col">
+                        <label for="address">Placas del vehículo:</label>
+                        <input type="text" id="addres" class="form-control mt-2" name="address" placeholder="Ejemplo: Carrera 35 #35-24, Barrio tejar" required>
+                        
+                    </div>
+    
+                    <div class="form-group col">
+                        <label for="postal_code">Numero de guía:</label>
+                        <input type="text" pattern="[0-9]{6}"  id="postal_code" class="form-control mt-2" name="postal_code" placeholder="Ejemplo: 520008" required>
+                    </div>
+                    
+                </div>
+                    
+             
+
+                
+                    
+            </form>
+        </div>
+
+        <div class="card-footer mt-5">
+            <div class="col-md-12 text-center mt-4">
+            
+                <button type="submit" class="btn btn-success btn-lg" routerLink="" routerLinkActive="active" >Finalizar</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
 
