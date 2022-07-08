@@ -1,19 +1,22 @@
-<div class="container">
+<div class="container" >
     
     <div class="card mt-5">
         <legend class="text-center header mt-3">Información de Envió</legend>
 
         <div class="card-body">
-            <form class="form" method="POST">
+            <form  [formGroup]="formRegisterShipping"  class="form" method="POST"  novalidate (ngSubmit) ="onSubmitShipping()">
+
 
                 <div class="row ">
                     <div class="form-group col">
                         <label for="city">Logistica:</label>
-                        <select class="form-control mt-2" id="city" name="city" required>
+                        <select class="form-control mt-2" id="city"   [(ngModel)]="shipping.logistic" formControlName="logistic" [class.is-invalid] = "formRegisterShipping.get('logistic')?.hasError('required') && formRegisterShipping.get('logistic')?.touched">
                             <option selected>Terrestre</option>
                             <option value="1">Maritima</option>
                     
                         </select>
+
+                        <small *ngIf="formRegisterShipping.get('logistic')?.hasError('required') && formRegisterShipping.get('logistic')?.touched"> Este Campo es requerido</small>
                       </div>
                 </div>
 
@@ -23,12 +26,20 @@
 
                     <div class="form-group col">
                         <label for="type-product">Tipo de producto:</label>
-                        <input type="text" class="form-control mt-2" id="type-product" placeholder="Tipo de producto" name="type-product" required>
+                        <input type="text" class="form-control mt-2" id="type-product"  name="type-product" [(ngModel)]="shipping.type_product" formControlName="type_product" [class.is-invalid] = "formRegisterShipping.get('type_product')?.hasError('required') && formRegisterShipping.get('type_product')?.touched">
+
+                        <small *ngIf="formRegisterShipping.get('type_product')?.hasError('required') && formRegisterShipping.get('type_product')?.touched"> Este Campo es requerido</small>
+
                     </div>
     
                     <div class="form-group col">
                         <label for="quantity-product">Cantidad del producto:</label>
-                        <input type="text" class="form-control mt-2" id="quantity-product" placeholder="Cantidad del producto" name="quantity-product" required>
+                        <input type="text" class="form-control mt-2" id="quantity-product"  name="quantity-product" [(ngModel)]="shipping.quantity" formControlName="quantity" [class.is-invalid] = "formRegisterShipping.get('quantity')?.hasError('required') && formRegisterShipping.get('quantity')?.touched">
+
+                        <small *ngIf="formRegisterShipping.get('quantity')?.hasError('pattern') && formRegisterShipping.get('quantity')?.touched"> solo se admite valores numéricos</small>
+
+                        <small *ngIf="formRegisterShipping.get('quantity')?.hasError('required') && formRegisterShipping.get('quantity')?.touched"> Este Campo es requerido</small>
+
                     </div>
 
                 </div>
@@ -41,18 +52,13 @@
                         <label for="register-date">Fecha de registro:</label>
                        <div class="row">
                            <div class="col">
-                                <input class="form-control" placeholder="yyyy-mm-dd" type="text"
-                                name="register-date"  ngbDatepicker #d2="ngbDatepicker">
+                                <input class="form-control" placeholder="yyyy-mm-dd" type="date"
+                                name="register-date"   [(ngModel)]="shipping.register_date" formControlName="register_date" [class.is-invalid] = "formRegisterShipping.get('register_date')?.hasError('required') && formRegisterShipping.get('register_date')?.touched">
+
+                                <small *ngIf="formRegisterShipping.get('register_date')?.hasError('required') && formRegisterShipping.get('register_date')?.touched"> Este Campo es requerido</small>
                        
                            </div>
-                           <div class="col">
-                            <button class="btn btn-outline-secondary calendar w-auto h-auto " (click)="d2.toggle()" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
-                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                  </svg>
-                            </button>
-                           </div>
+                           
                         
                        </div>
                         
@@ -63,18 +69,13 @@
                         <label for="delivery-date">Fecha de entrega:</label>
                        <div class="row">
                            <div class="col">
-                                <input class="form-control" placeholder="yyyy-mm-dd" type="text"
-                                name="delivery-date"  ngbDatepicker #d3="ngbDatepicker">
+                                <input class="form-control" placeholder="yyyy-mm-dd" type="date"
+                                name="delivery-date"   [(ngModel)]="shipping.delivery_date" formControlName="delivery_date" [class.is-invalid] = "formRegisterShipping.get('delivery_date')?.hasError('required') && formRegisterShipping.get('delivery_date')?.touched">
+
+                                <small *ngIf="formRegisterShipping.get('delivery_date')?.hasError('required') && formRegisterShipping.get('delivery_date')?.touched"> Este Campo es requerido</small>
                        
                            </div>
-                           <div class="col">
-                            <button class="btn btn-outline-secondary calendar w-auto h-auto " (click)="d3.toggle()" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
-                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                  </svg>
-                            </button>
-                           </div>
+                           
                         
                        </div>
                         
@@ -89,19 +90,25 @@
 
                     <div class="form-group col">
 
-                        <label for="cellar-delivery">Bodega de entrega:</label>
-                        <select class="form-control mt-2" id="cellar-delivery" name="cellar-delivery" required>
+                        <label for="cellar_delivery">Bodega de entrega:</label>
+                        <select class="form-control mt-2" id="cellar-delivery" name="cellar_delivery"   [(ngModel)]="shipping.cellar_delivery" formControlName="cellar_delivery" [class.is-invalid] = "formRegisterShipping.get('cellar_delivery')?.hasError('required') && formRegisterShipping.get('cellar_delivery')?.touched">
                             <option selected>--- </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <small *ngIf="formRegisterShipping.get('cellar_delivery')?.hasError('required') && formRegisterShipping.get('cellar_delivery')?.touched"> Este Campo es requerido</small>
                         
                     </div>
 
                     <div class="form-group col">
-                        <label for="dni">Precio de envió:</label>
-                        <input type="tel" pattern="[0-9]{16}"  id="dni" class="form-control mt-2" name="dni" placeholder="$000.000.000" required>
+                        <label for="price">Precio de envió:</label>
+                        <input type="text"   id="price" class="form-control mt-2" name="price" [(ngModel)]="shipping.price" formControlName="price" [class.is-invalid] = "formRegisterShipping.get('price')?.hasError('required') && formRegisterShipping.get('price')?.touched">
+
+                        <small *ngIf="formRegisterShipping.get('price')?.hasError('required') && formRegisterShipping.get('price')?.touched"> Este Campo es requerido</small>
+
+                        <small *ngIf="formRegisterShipping.get('price')?.hasError('pattern') && formRegisterShipping.get('price')?.touched"> Este campo solo admite valores numéricos</small>
                         
                     </div>
 
@@ -118,16 +125,40 @@
                 <div class="row mt-4 ">
 
                     <div class="form-group col">
-                        <label for="address">Placas del vehículo:</label>
-                        <input type="text" id="addres" class="form-control mt-2" name="address" placeholder="Ejemplo: Carrera 35 #35-24, Barrio tejar" required>
+                        <label for="id_transport">Placas del vehículo:</label>
+                        <input type="text" id="id_transport" class="form-control mt-2" name="id_transport"  [(ngModel)]="shipping.id_transport" formControlName="id_transport" 
+                        [class.is-invalid] = "formRegisterShipping.get('id_transport')?.hasError('required') && formRegisterShipping.get('id_transport')?.touched">
+
+                        <small *ngIf="formRegisterShipping.get('id_transport')?.hasError('required') && formRegisterShipping.get('id_transport')?.touched"> Este Campo es requerido</small>
                         
                     </div>
     
                     <div class="form-group col">
-                        <label for="postal_code">Numero de guía:</label>
-                        <input type="text" pattern="[0-9]{6}"  id="postal_code" class="form-control mt-2" name="postal_code" placeholder="Ejemplo: 520008" required>
+                        <label for="num_guide">Numero de guía:</label>
+                        <input type="text"   id="postal_code" class="form-control mt-2" name="num_guide" [(ngModel)]="shipping.number_guide" formControlName="number_guide" [class.is-invalid] = "formRegisterShipping.get('number_guide')?.hasError('required') && formRegisterShipping.get('number_guide')?.touched">
+
+                        <small *ngIf="formRegisterShipping.get('number_guide')?.hasError('required') && formRegisterShipping.get('number_guide')?.touched"> Este Campo es requerido</small>
+
                     </div>
                     
+                </div>
+
+                <div class="card-footer mt-5">
+
+
+                    <div *ngIf="formRegisterShipping.invalid ">
+                        <ngb-alert [type]="alerts[3].type" (closed)="close(alerts[3])">{{ alerts[3].message }}</ngb-alert>
+                    </div>
+        
+                    <div *ngIf="formRegisterShipping.valid ">
+                        <ngb-alert [type]="alerts[1].type" (closed)="close(alerts[1])">{{ alerts[1].message }}</ngb-alert>
+                    </div>
+        
+                    <div class="col-md-12 text-center mt-4">
+                    
+                        <button type="submit" class="btn btn-success btn-lg" [disabled]="formRegisterShipping.invalid" >Finalizar</button>
+                    </div>
+        
                 </div>
                     
              
@@ -137,16 +168,7 @@
             </form>
         </div>
 
-        <div class="card-footer mt-5">
-            <div class="col-md-12 text-center mt-4">
-                <a class="btn btn-secondary btn-lg m-5" href="javascript:history.back()">Regresar</a>
-                <a class="btn btn-success btn-lg" routerLink="" routerLinkActive="active" >Finalizar</a>
-            </div>
-
-        </div>
+        
     </div>
 
 </div>
-
-
-

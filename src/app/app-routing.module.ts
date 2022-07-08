@@ -10,7 +10,7 @@ import { IndexShippingComponent } from './shipping/index-shipping/index-shipping
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path:'user_register', component:UserRegisterComponent},
-  {path:'user_register/shipping_plan', component:ShippingPlanComponent},
+  {path:'shipping_plan', component:ShippingPlanComponent},
   {path:'cellar_ports', component:ShowCellarPortsComponent},
   {path:'shipping',component:IndexShippingComponent}
 ];

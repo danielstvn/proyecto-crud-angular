@@ -1,329 +1,500 @@
 <div class="container">
-    <form [formGroup]="formRegisterClient"  class="form" method="POST" (ngSubmit) ="onSubmit()" autocomplete="off" novalidate >  
-    
-        <div class="card mt-5">
-            <legend class="text-center header mt-3">Datos Personales</legend>
 
-            <div class="card-body">
-                
+    <div class="m-5">
 
-                    <!-- Registro de nombres y apellidos-->
-                    <div class="row">
+        <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Agregar un nuevo Cliente</button>
 
-                        <div class="form-group col">
-                            <label for="name">Nombre Completo:</label>
-                            <input type="text" [(ngModel)]="client.name" formControlName="name" [class.is-invalid] = "formRegisterClient.get('name')?.hasError('required') && formRegisterClient.get('name')?.touched" name="name" class="form-control mt-2" id="name"  >
-
-                            <small *ngIf="formRegisterClient.get('name')?.hasError('required') && formRegisterClient.get('name')?.touched"> Este Campo es requerido</small>
-                        </div>
-        
-                        <div class="form-group col">
-                            <label for="last-name">Apellidos:</label>
-                            <input type="text" [(ngModel)]="client.last_name" formControlName="last_name" [class.is-invalid] = "formRegisterClient.get('last_name')?.hasError('required') && formRegisterClient.get('last_name')?.touched"  class="form-control mt-2" id="last-name" name="last-name" >
-
-                            <small *ngIf="formRegisterClient.get('last_name')?.hasError('required') && formRegisterClient.get('last_name')?.touched"> Este Campo es requerido</small>
-                        </div>
-
-                    </div>
-
-
-                    <!--Registro de email y telefono-->
-                    <div class="row mt-4">
-
-                        <div class="form-group col">
-                            <label for="phone">Teléfono:</label>
-                            <input type="text" [(ngModel)]="client.phone" formControlName="phone" [class.is-invalid] = "formRegisterClient.get('phone')?.hasError('required') && formRegisterClient.get('phone')?.touched && formRegisterClient.get('phone')?.hasError('pattern')"  id="phone" class="form-control mt-2" name="phone" >
-
-                            <small *ngIf="formRegisterClient.get('phone')?.hasError('required') &&formRegisterClient.get('phone')?.touched"> Este Campo es requerido</small>
-                            <small *ngIf="formRegisterClient.get('phone')?.hasError('pattern') && formRegisterClient.get('phone')?.touched">Formato numerico max 10 digitos</small>
-                            
-                        </div>
-        
-                        <div class="form-group col">
-                            <label for="email">Email:</label>
-                            <input type="email" [(ngModel)]="client.email" formControlName="email" class="form-control mt-2" id="email" name="email" [class.is-invalid] = "formRegisterClient.get('email')?.hasError('required') && formRegisterClient.get('email')?.touched && formRegisterClient.get('email')?.hasError('pattern')">
-
-                            <small *ngIf="formRegisterClient.get('email')?.hasError('required')  && formRegisterClient.get('email')?.touched"> Este Campo es requerido</small>
-                            
-                            <small *ngIf="formRegisterClient.get('email')?.hasError('pattern')  && formRegisterClient.get('email')?.touched"> No corresponde a un formato de correo</small>
-                        </div>
-                        
-                    </div>  
-
-                    <!--Registro de cedula y fecha de expedicion-->
-                    <div class="row mt-4">
-
-                      
-
-                        <div class="form-group col">
-                            <label for="dni">Identificación:</label>
-                            <input type="text" [(ngModel)]="client.dni" formControlName="dni"  pattern="[0-9]{10}"  id="dni" class="form-control mt-2" name="dni" [class.is-invalid] = "formRegisterClient.get('dni')?.hasError('required')  && formRegisterClient.get('dni')?.hasError('pattern') && formRegisterClient.get('dni')?.touched">
-
-                            <small *ngIf="formRegisterClient.get('dni')?.hasError('required') && formRegisterClient.get('dni')?.touched"> Este Campo es requerido</small>
-
-                            <small *ngIf="formRegisterClient.get('dni')?.hasError('pattern') && formRegisterClient.get('dni')?.touched"> Formato numérico</small>
-                            
-                        </div>
-
-                                        
-                        
-                    </div>
-
-                    <!--Registro de pais provincia y ciudad -->
-                    <div class="row mt-4">
-
-                        <div class="form-group col">
-
-                            <label for="country">Pais:</label>
-                            <select class="form-control mt-2" [(ngModel)]="client.country" formControlName="country" id="country" name="country" [class.is-invalid] = "formRegisterClient.get('country')?.hasError('required') && formRegisterClient.get('country')?.touched">
-                                <option selected>Pais</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-
-                            <small *ngIf="formRegisterClient.get('country')?.hasError('required') && formRegisterClient.get('country')?.touched"> Este Campo es requerido</small>
-                            
-                        </div>
-        
-                        <div class="form-group col">
-
-                            <label for="province">Provincia:</label>
-                            <select class="form-control mt-2" [(ngModel)]="client.province" formControlName="province" id="province" name="province" [class.is-invalid] = "formRegisterClient.get('province')?.hasError('required') && formRegisterClient.get('province')?.touched">
-                                <option selected>Provincia</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-
-                            <small *ngIf="formRegisterClient.get('province')?.hasError('required') && formRegisterClient.get('province')?.touched"> Este Campo es requerido</small>
-                            
-                        </div>
-
-                        <div class="form-group col">
-
-                            <label for="city">Ciudad:</label>
-                            <select class="form-control mt-2" [(ngModel)]="client.city" formControlName="city"  id="city" name="city" [class.is-invalid] = "formRegisterClient.get('city')?.hasError('required') && formRegisterClient.get('city')?.touched">
-                                <option selected>ciudad</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-
-                            <small *ngIf="formRegisterClient.get('city')?.hasError('required') && formRegisterClient.get('city')?.touched"> Este Campo es requerido</small>
-                            
-                        </div>
-                    </div>
-
-                        <!--Registro domicilo y codigo postal-->
-                    <div class="row mt-4 ">
-
-                        <div class="form-group col">
-                            <label for="address">Dirección de residencia:</label>
-                            <input type="text" id="addres" [(ngModel)]="client.location" formControlName="location" class="form-control mt-2" name="address" placeholder="Ejemplo: Carrera 35 #35-24, Barrio tejar" required>
-
-                            <small *ngIf="formRegisterClient.get('location')?.hasError('required') && formRegisterClient.get('location')?.touched"> Este Campo es requerido</small>
-                            
-                        </div>
-        
-                        <div class="form-group col">
-                            <label for="postal_code">Código postal:</label>
-                            <input type="text" pattern="[0-9]{6}" [(ngModel)]="client.postal_code" formControlName="postal_code"   id="postal_code" class="form-control mt-2" name="postal_code" [class.is-invalid] = "formRegisterClient.get('postal_code')?.hasError('required') && formRegisterClient.get('postal_code')?.touched && formRegisterClient.get('postal_code')?.hasError('pattern') ">
-
-                            <small *ngIf="formRegisterClient.get('postal_code')?.hasError('pattern') && formRegisterClient.get('postal_code')?.touched"> Formato numérico máx 6 digitos</small>
-
-
-                            <small *ngIf="formRegisterClient.get('postal_code')?.hasError('required') && formRegisterClient.get('postal_code')?.touched"> Formato numérico máx 6 digitos</small>
-                        </div>
-                        
-                    </div>
-                        
-                
-
-                    
-                        
-                
-            </div>
-
-            <div class="card-footer ">
-                <div class="col-md-12 text-center mt-3" *ngIf="isSubmited == false">
-
-                    <button type="submit" class="btn btn-primary btn-lg" [disabled] = 'formRegisterClient.invalid' (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
-                    aria-controls="collapseExample">Guardar</button>
-        
-                </div>
-
-                <div class="col-md-12 text-center mt-3" *ngIf="isSubmited == true">
-
-                    <button type="submit" class="btn btn-warning btn-lg" [disabled] = 'formRegisterClient.invalid' 
-                        aria-controls="collapseExample">Actualizar</button> 
-                    
-                </div>
-
-            </div>
-
-    
-        </div>
-    </form>
-
-
-
-
-</div>
-
-
-<!--SEGUNDO FORMULARIO-->
-
-
-<div class="container" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-    
-    <div class="card mt-5">
-        <legend class="text-center header mt-3">Información de Envió</legend>
-
-        <div class="card-body">
-            <form  [formGroup]="formRegisterClient"  class="form" method="POST" (ngSubmit) ="onUpdate()" autocomplete="off" novalidate>
-
-                <div class="row ">
-                    <div class="form-group col">
-                        <label for="city">Logistica:</label>
-                        <select class="form-control mt-2" id="city" name="city" required>
-                            <option selected>Terrestre</option>
-                            <option value="1">Maritima</option>
-                    
-                        </select>
-                      </div>
-                </div>
-
-
-                <!-- Registro tipo de producto y cantidad de producto-->
-                <div class="row mt-5">
-
-                    <div class="form-group col">
-                        <label for="type-product">Tipo de producto:</label>
-                        <input type="text" class="form-control mt-2" id="type-product" placeholder="Tipo de producto" name="type-product" required>
-                    </div>
-    
-                    <div class="form-group col">
-                        <label for="quantity-product">Cantidad del producto:</label>
-                        <input type="text" class="form-control mt-2" id="quantity-product" placeholder="Cantidad del producto" name="quantity-product" required>
-                    </div>
-
-                </div>
-
-
-                <!--Fecha de resgistro -->
-                <div class="row mt-4">
-
-                    <div class="form-group col">
-                        <label for="register-date">Fecha de registro:</label>
-                       <div class="row">
-                           <div class="col">
-                                <input class="form-control" placeholder="yyyy-mm-dd" type="text"
-                                name="register-date"  ngbDatepicker #d2="ngbDatepicker">
-                       
-                           </div>
-                           <div class="col">
-                            <button class="btn btn-outline-secondary calendar w-auto h-auto " (click)="d2.toggle()" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
-                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                  </svg>
-                            </button>
-                           </div>
-                        
-                       </div>
-                        
-                    </div>  
-
-                    <!--fecha de  entrega -->
-                    <div class="form-group col">
-                        <label for="delivery-date">Fecha de entrega:</label>
-                       <div class="row">
-                           <div class="col">
-                                <input class="form-control" placeholder="yyyy-mm-dd" type="text"
-                                name="delivery-date"  ngbDatepicker #d3="ngbDatepicker">
-                       
-                           </div>
-                           <div class="col">
-                            <button class="btn btn-outline-secondary calendar w-auto h-auto " (click)="d3.toggle()" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
-                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                  </svg>
-                            </button>
-                           </div>
-                        
-                       </div>
-                        
-                    </div>  
-                    
-                </div>
-
-                
-                <div class="row mt-4">
-
-                    <!--Bodega de entrega-->
-
-                    <div class="form-group col">
-
-                        <label for="cellar-delivery">Bodega de entrega:</label>
-                        <select class="form-control mt-2" id="cellar-delivery" name="cellar-delivery" required>
-                            <option selected>--- </option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-
-                    <div class="form-group col">
-                        <label for="dni">Precio de envió:</label>
-                        <input type="tel" pattern="[0-9]{16}"  id="dni" class="form-control mt-2" name="dni" placeholder="$000.000.000" required>
-                        
-                    </div>
-
-                   
-    
-                    
-                    
-                </div>
-
-         
-               <!---->
-
-                     
-                <div class="row mt-4 ">
-
-                    <div class="form-group col">
-                        <label for="address">Placas del vehículo:</label>
-                        <input type="text" id="addres" class="form-control mt-2" name="address" placeholder="Ejemplo: Carrera 35 #35-24, Barrio tejar" required>
-                        
-                    </div>
-    
-                    <div class="form-group col">
-                        <label for="postal_code">Numero de guía:</label>
-                        <input type="text" pattern="[0-9]{6}"  id="postal_code" class="form-control mt-2" name="postal_code" placeholder="Ejemplo: 520008" required>
-                    </div>
-                    
-                </div>
-                    
-             
-
-                
-                    
-            </form>
-        </div>
-
-        <div class="card-footer mt-5">
-            <div class="col-md-12 text-center mt-4">
-            
-                <button type="submit" class="btn btn-success btn-lg" routerLink="" routerLinkActive="active" >Finalizar</button>
-            </div>
-
-        </div>
     </div>
 
+
+   
+
+
 </div>
+
+
+<!--TABLA PARA MOSTRAR LOS clientes -->
+
+<div class="container mt-5" >
+
+    <div>
+        <h3>Clientes Registrados</h3>
+    </div>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Dni</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Email</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of listClient ; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{client.name }}  {{client.last_name}} </td>
+            <td>{{client.dni}}</td>
+            <td>{{client.phone}}</td>
+            <td>{{client.email}}</td>
+            <td>    
+
+                <button class="btn btn-lg btn-outline-primary" (click)="openShow(contentShow,client.id)">Ver</button>
+
+                <button class="btn btn-lg btn-outline-warning" style="margin-left:10px ; margin-right: 10px;" (click)="openEdit(contentEdit,client.id)">Editar</button>
+
+                <button class="btn btn-lg btn-outline-danger" (click)="openDelete(contentDelete,client.id)">Eliminar</button>
+
+            </td>
+          
+          </tr>
+          
+        </tbody>
+      </table>
+
+</div>
+
+
+
+<!--MODAL DE REGISTRO DE USUARIO-->
+<ng-template #content let-modal>
+    <div >
+        <form [formGroup]="formRegisterClient"  class="form" method="POST" (ngSubmit) ="onSubmit()"    novalidate >  
+        
+            <div class="card mt-5">
+                <legend class="text-center header mt-3">Datos Personales</legend>
+    
+                <div class="card-body">
+                    
+    
+                        <!-- Registro de nombres y apellidos-->
+                        <div class="row">
+    
+                            <div class="form-group col">
+                                <label for="name">Nombres:</label>
+                                <input type="text" [(ngModel)]="client.name" formControlName="name" [class.is-invalid] = "formRegisterClient.get('name')?.hasError('required') && formRegisterClient.get('name')?.touched" name="name" class="form-control mt-2" id="name"  >
+    
+                                <small *ngIf="formRegisterClient.get('name')?.hasError('required') && formRegisterClient.get('name')?.touched"> Este Campo es requerido</small>
+                            </div>
+            
+                            <div class="form-group col">
+                                <label for="last-name">Apellidos:</label>
+                                <input type="text" [(ngModel)]="client.last_name" formControlName="last_name" [class.is-invalid] = "formRegisterClient.get('last_name')?.hasError('required') && formRegisterClient.get('last_name')?.touched"  class="form-control mt-2" id="last-name" name="last-name" >
+    
+                                <small *ngIf="formRegisterClient.get('last_name')?.hasError('required') && formRegisterClient.get('last_name')?.touched"> Este Campo es requerido</small>
+                            </div>
+    
+                        </div>
+    
+    
+                        <!--Registro de email y telefono-->
+                        <div class="row mt-4">
+    
+                            <div class="form-group col">
+                                <label for="phone">Teléfono:</label>
+                                <input type="text" [(ngModel)]="client.phone" formControlName="phone" [class.is-invalid] = "formRegisterClient.get('phone')?.hasError('required') && formRegisterClient.get('phone')?.touched && formRegisterClient.get('phone')?.hasError('pattern')"  id="phone" class="form-control mt-2" name="phone" >
+    
+                                <small *ngIf="formRegisterClient.get('phone')?.hasError('required') &&formRegisterClient.get('phone')?.touched"> Este Campo es requerido</small>
+                                <small *ngIf="formRegisterClient.get('phone')?.hasError('pattern') && formRegisterClient.get('phone')?.touched">Formato numerico max 10 digitos</small>
+                                
+                            </div>
+            
+                            <div class="form-group col">
+                                <label for="email">Email:</label>
+                                <input type="email" [(ngModel)]="client.email" formControlName="email" class="form-control mt-2" id="email" name="email" [class.is-invalid] = "formRegisterClient.get('email')?.hasError('required') && formRegisterClient.get('email')?.touched && formRegisterClient.get('email')?.hasError('pattern')">
+    
+                                <small *ngIf="formRegisterClient.get('email')?.hasError('required')  && formRegisterClient.get('email')?.touched"> Este Campo es requerido</small>
+                                
+                                <small *ngIf="formRegisterClient.get('email')?.hasError('pattern')  && formRegisterClient.get('email')?.touched"> No corresponde a un formato de correo</small>
+                            </div>
+                            
+                        </div>  
+    
+                        <!--Registro de cedula y fecha de expedicion-->
+                        <div class="row mt-4">
+    
+                          
+    
+                            <div class="form-group col">
+                                <label for="dni">Identificación:</label>
+                                <input type="text" [(ngModel)]="client.dni" formControlName="dni"  pattern="[0-9]{10}"  id="dni" class="form-control mt-2" name="dni" [class.is-invalid] = "formRegisterClient.get('dni')?.hasError('required')  && formRegisterClient.get('dni')?.hasError('pattern') && formRegisterClient.get('dni')?.touched">
+    
+                                <small *ngIf="formRegisterClient.get('dni')?.hasError('required') && formRegisterClient.get('dni')?.touched"> Este Campo es requerido</small>
+    
+                                <small *ngIf="formRegisterClient.get('dni')?.hasError('pattern') && formRegisterClient.get('dni')?.touched"> Formato numérico</small>
+                                
+                            </div>
+    
+                                            
+                            
+                        </div>
+    
+                        <!--Registro de pais provincia y ciudad -->
+                        <div class="row mt-4">
+    
+                            <div class="form-group col">
+    
+                                <label for="country">Pais:</label>
+                                <select class="form-control mt-2" [(ngModel)]="client.country" formControlName="country" id="country" name="country" [class.is-invalid] = "formRegisterClient.get('country')?.hasError('required') && formRegisterClient.get('country')?.touched">
+                                    <option selected>Pais</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+    
+                                <small *ngIf="formRegisterClient.get('country')?.hasError('required') && formRegisterClient.get('country')?.touched"> Este Campo es requerido</small>
+                                
+                            </div>
+            
+                            <div class="form-group col">
+    
+                                <label for="province">Provincia:</label>
+                                <select class="form-control mt-2" [(ngModel)]="client.province" formControlName="province" id="province" name="province" [class.is-invalid] = "formRegisterClient.get('province')?.hasError('required') && formRegisterClient.get('province')?.touched">
+                                    <option selected>Provincia</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+    
+                                <small *ngIf="formRegisterClient.get('province')?.hasError('required') && formRegisterClient.get('province')?.touched"> Este Campo es requerido</small>
+                                
+                            </div>
+    
+                            <div class="form-group col">
+    
+                                <label for="city">Ciudad:</label>
+                                <select class="form-control mt-2" [(ngModel)]="client.city" formControlName="city"  id="city" name="city" [class.is-invalid] = "formRegisterClient.get('city')?.hasError('required') && formRegisterClient.get('city')?.touched">
+                                    <option selected>ciudad</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+    
+                                <small *ngIf="formRegisterClient.get('city')?.hasError('required') && formRegisterClient.get('city')?.touched"> Este Campo es requerido</small>
+                                
+                            </div>
+                        </div>
+    
+                            <!--Registro domicilo y codigo postal-->
+                        <div class="row mt-4 ">
+    
+                            <div class="form-group col">
+                                <label for="address">Dirección de residencia:</label>
+                                <input type="text" id="addres" [(ngModel)]="client.location" formControlName="location" class="form-control mt-2" name="address"     required>
+    
+                                <small *ngIf="formRegisterClient.get('location')?.hasError('required') && formRegisterClient.get('location')?.touched"> Este Campo es requerido</small>
+                                
+                            </div>
+            
+                            <div class="form-group col">
+                                <label for="postal_code">Código postal:</label>
+                                <input type="text" pattern="[0-9]{6}" [(ngModel)]="client.postal_code" formControlName="postal_code"   id="postal_code" class="form-control mt-2" name="postal_code" [class.is-invalid] = "formRegisterClient.get('postal_code')?.hasError('required') && formRegisterClient.get('postal_code')?.touched && formRegisterClient.get('postal_code')?.hasError('pattern') ">
+    
+                                <small *ngIf="formRegisterClient.get('postal_code')?.hasError('pattern') && formRegisterClient.get('postal_code')?.touched"> Formato numérico máx 6 digitos</small>
+    
+    
+                                <small *ngIf="formRegisterClient.get('postal_code')?.hasError('required') && formRegisterClient.get('postal_code')?.touched"> Formato numérico máx 6 digitos</small>
+                            </div>
+                            
+                        </div>
+                            
+                    
+    
+                        
+                            
+                    
+                </div>
+    
+                <div class="card-footer ">
+    
+                    <div *ngIf="formRegisterClient.invalid ">
+                        <ngb-alert [type]="alerts[2].type" (closed)="close(alerts[2])">{{ alerts[2].message }}</ngb-alert>
+                    </div>
+    
+                    <div class="col-md-12 text-center mt-3" *ngIf="isSubmited == false">
+    
+                        <button type="submit" class="btn btn-primary btn-lg" [disabled] = 'formRegisterClient.invalid'  [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseExample" >Guardar Datos</button>
+    
+                        <!---->
+            
+                    </div>
+    
+                   
+                </div>
+    
+        
+            </div>
+        </form>
+    
+        <div class="col-md-12 text-center mt-3"   *ngIf="isSubmited == true">
+    
+            <ngb-alert [type]="alerts[0].type" (closed)="close(alerts[0])">{{ alerts[0].message }}</ngb-alert>
+    
+           
+    
+           
+        </div>
+    
+    
+    
+    
+    
+    </div>
+    
+        
+</ng-template>
+
+<!--MODAL DEL SHOW CLIENT-->
+
+<ng-template #contentShow let-modal>
+
+    <div class="container">
+
+        <div class="m-5">
+            <h2>Información del Cliente  N° {{infoClient.id}}</h2>
+        </div>
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Nombres</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.name" readonly />
+            </div>
+
+        </div>
+        
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Apellidos</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.last_name" readonly />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Dni</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.dni" readonly />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Teléfono</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.phone" readonly />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Correo</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.email" readonly />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Pais</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.country" readonly />
+            </div>
+            
+        </div> 
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Provincia</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.province" readonly />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Ciudad</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.city" readonly />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Nombres</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.location" readonly />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Código Postal</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.postal_code" readonly />
+            </div>
+            
+        </div> 
+
+
+          
+    </div>
+
+    <div class="modal-footer">
+
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+
+</ng-template>
+
+<!--MODAL DEL EDIT CLIENT-->
+
+<ng-template #contentEdit let-modal>
+
+
+<form action="" (ngSubmit)="onUpdate(infoClient.id)" >
+
+    <div class="container">
+
+        <div class="m-5">
+            <h2>Actualización de Datos </h2>
+        </div>
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Nombres</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.name" [(ngModel)]="infoClient.name" name="name" />
+            </div>
+
+        </div>
+        
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Apellidos</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.last_name" [(ngModel)]="infoClient.last_name" name="last_name"/>
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Dni</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.dni" 
+              [(ngModel)]="infoClient.dni" name="dni" />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Teléfono</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.phone" 
+              [(ngModel)]="infoClient.phone" name="phone"/>
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Correo</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.email" [(ngModel)]="infoClient.email" name="email"  />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Pais</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.country" [(ngModel)]="infoClient.country" name="country"  />
+            </div>
+            
+        </div> 
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Provincia</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.province" [(ngModel)]="infoClient.province"  name="province" />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Ciudad</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.city" [(ngModel)]="infoClient.city" name="city" />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Dirección</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.location"  [(ngModel)]="infoClient.location" name="location" />
+            </div>
+            
+        </div> 
+
+        <div class="form-group row m-3">
+
+            <label  class="col-sm-2 col-form-label">Código Postal</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [value]="infoClient.postal_code"  [(ngModel)]="infoClient.postal_code" name="postal_code" />
+            </div>
+            
+        </div> 
+
+
+          
+    </div>
+
+    <div class="modal-footer">
+
+        <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar los Cambios</button>
+    </div>
+
+</form>
+</ng-template>
+
+<!--MODAL ELIMINAR-->
+
+<ng-template #contentDelete let-modal>
+
+    <div class="modal-header">
+        <h2>Confirmación de Eliminación</h2>
+    </div>
+
+    <div class="modal-body">
+
+        ¿Esta seguro de Eliminar el Cliente <strong>{{infoClient.name }}  {{infoClient.last_name}} </strong> ? 
+
+    </div>
+
+    
+    <div class="modal-footer">
+    
+        <button type="submit" class="btn btn-outline-danger" (click)="modal.close('Save click')"  (click)="deleteClient(infoClient.id)"> Eliminar Cliente</button>
+    </div>
+    
+  
+    </ng-template>
 
 
 
