@@ -16,6 +16,7 @@ import { IndexShippingComponent } from './shipping/index-shipping/index-shipping
 import { ShowShippingComponent } from './shipping/show-shipping/show-shipping.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
 
 
   ],

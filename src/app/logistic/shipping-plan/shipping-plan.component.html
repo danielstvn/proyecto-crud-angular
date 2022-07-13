@@ -1,18 +1,72 @@
 <div class="container" >
     
     <div class="card mt-5">
-        <legend class="text-center header mt-3">Información de Envió</legend>
+        <legend class="text-center header mt-3">Consulta de clientes</legend>
+
+
+     
 
         <div class="card-body">
-            <form  [formGroup]="formRegisterShipping"  class="form" method="POST"  novalidate (ngSubmit) ="onSubmitShipping()">
 
+
+
+               <!--Ingreso del id del cliente par relacionarlo con un envio-->
+            <div class="row">
+
+                <div class="form-group col">
+                    <label for="city">DNI del cliente:</label>
+                    <input type="text" class="form-control mt-2" id="dni"  name="dni" [(ngModel)]="dniClient">                  
+                </div>
+                
+                <div class="form-group col">
+                    
+                    <button class=" btn btn-outline-info " style="margin-top: 30px; width: 100px;" (click)="findClient()" > Validar</button>                 
+                </div>
+
+
+            </div>
+
+
+            <!--div si el cliente no existe-->
+
+            <div class="mt-3">
+
+                 <!--div si el cliente no existe-->
+
+                <div *ngIf="redirectRegister">
+                    <ngb-alert [type]="alerts[4].type" (closed)="close(alerts[4])">{{ alerts[4].message }}</ngb-alert>
+
+                    <div class="form-group col">
+                    
+                        <a class=" btn btn-outline-primary " style="margin-top: 5px; "  routerLink="/user_register"  routerLinkActive="active"> Registro de Clientes</a>                 
+                    </div>
+
+                </div>
+
+                 <!--div si el cliente  existe-->
+
+                 <div *ngIf="existClient">
+                    <ngb-alert [type]="alerts[5].type" >{{ alerts[5].message }}</ngb-alert>
+
+                    
+
+                </div>
+
+                
+
+            </div>
+
+            <!-- formulario si el ciente existe-->
+            <form  [formGroup]="formRegisterShipping"  class="form " method="POST"  novalidate (ngSubmit) ="onSubmitShipping()" *ngIf="existClient">
+
+                <legend class="text-center header">Información del Envió</legend>
 
                 <div class="row ">
                     <div class="form-group col">
                         <label for="city">Logistica:</label>
                         <select class="form-control mt-2" id="city"   [(ngModel)]="shipping.logistic" formControlName="logistic" [class.is-invalid] = "formRegisterShipping.get('logistic')?.hasError('required') && formRegisterShipping.get('logistic')?.touched">
                             <option selected>Terrestre</option>
-                            <option value="1">Maritima</option>
+                            <option value="Maritima">Maritima</option>
                     
                         </select>
 
@@ -154,10 +208,15 @@
                         <ngb-alert [type]="alerts[1].type" (closed)="close(alerts[1])">{{ alerts[1].message }}</ngb-alert>
                     </div>
         
-                    <div class="col-md-12 text-center mt-4">
+                    <div class="row text-center mt-4">
+
+
+                        <a class="btn btn-lg btn-outline-secondary col" (click)="clearInputs()" style="margin-right: 20px;" (closed)="close(alerts[5])">Limpiar Campos</a>
+
+                        <a class="btn btn-lg btn-outline-warning col"  [class.disabled]="formRegisterShipping.invalid" (click)="open(content)" style="margin-left: 20px;">Continuar</a>
                     
-                        <button type="submit" class="btn btn-success btn-lg" [disabled]="formRegisterShipping.invalid" >Finalizar</button>
-                    </div>
+                       
+                    </div> 
         
                 </div>
                     
@@ -166,9 +225,117 @@
                 
                     
             </form>
+
+            
+
+
+
+
+
+
         </div>
 
         
     </div>
 
 </div>
+
+
+
+<!--MODAL CONFIRMACION ENVIO-->
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmación de Envió</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <table class="table">
+            
+            <tbody>
+              <tr>
+                <th scope="row">Logistica:</th>
+                <td>{{shipping.logistic}}</td>
+
+              </tr>
+              <tr>
+                <th scope="row">Tipo de Producto:</th>
+                <td>{{shipping.type_product}}</td>
+
+              </tr>
+              <tr>
+                <th scope="row">Cantidad:</th>
+                <td colspan="2">{{shipping.quantity}} unidades</td>
+    
+              </tr>
+
+              <tr>
+                <th scope="row">Fecha de registro:</th>
+                <td colspan="2">{{shipping.register_date}} </td>
+    
+              </tr>
+
+              <tr>
+                <th scope="row">Fecha de entrega:</th>
+                <td colspan="2">{{shipping.delivery_date}} </td>
+    
+              </tr>
+
+              <tr>
+                <th scope="row">Bodega de entrega:</th>
+                <td colspan="2">{{shipping.cellar_delivery}} </td>
+    
+              </tr>
+
+              <tr>
+                <th scope="row">Placas del vehículo:</th>
+                <td colspan="2">{{shipping.id_transport}} </td>
+    
+              </tr>
+
+              <tr>
+                <th scope="row">Numero de guia:</th>
+                <td colspan="2">{{shipping.number_guide}} </td>
+    
+              </tr>
+
+              
+            </tbody>
+          </table>
+
+          <div class="mt-3" *ngIf="shipping.quantity > 10">
+
+            <div *ngIf="shipping.logistic == 'Maritima'">
+                <h4>Total Costo de Envió: <strong>$ {{shipping.price - (shipping.price * 0.03)}}</strong> </h4>
+                <h6><del>$ {{shipping.price}}</del></h6>
+                <small>Descuento del 3% por 10+ unidades de envió en logistica Maritima</small>
+            </div>
+
+            <div *ngIf="shipping.logistic == 'Terrestre'">
+                <h4>Total Costo de Envió: <strong>$ {{shipping.price - (shipping.price * 0.05)}}</strong> </h4>
+                <h6><del>$ {{shipping.price}}</del></h6>
+                <small>Descuento del 5% por 10+ unidades de envió en logistica Terrestre</small>
+            </div>
+            
+          </div>
+
+
+          <div class="mt-3" *ngIf="shipping.quantity <= 10">
+            
+             <h4>Total Costo de Envió: <strong>$ {{shipping.price }}</strong> </h4>
+            
+          </div>
+     
+
+
+        
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success btn-lg"   (click)="modal.close('Save click')" (click)="onSubmitShipping()">Realizar envió</button>
+      
+    </div>
+  </ng-template>

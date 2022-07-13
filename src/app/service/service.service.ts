@@ -65,4 +65,9 @@ export class Service {
   }));
   }
 
+  findClient(dni: String): Observable<any> {
+    return this.httpClient.get(this.url.concat('/findClient/') + dni);
+  }
+  
+
 }

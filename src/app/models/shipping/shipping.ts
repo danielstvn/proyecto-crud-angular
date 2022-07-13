@@ -3,7 +3,7 @@ export class Shipping{
 	 id_client!: String;
 	 logistic!: String;
 	 type_product!: String;
-	 quantity!: String;
+	 quantity!: number;
 	 register_date!: String;
 	 delivery_date!: String;
 	 cellar_delivery!: String;
