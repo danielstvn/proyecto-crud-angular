@@ -1,89 +1,81 @@
 <div class="container">
 
-  
-    <div class="card mt-5">
-        <table class="table tabble-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre Bodega / Puerto</th>
-                <th scope="col">Almacenamiento</th>
-                <th scope="col">Pais</th>
-                <th scope="col">Ubicación</th>
-                <th scope="col">Disponibilidad</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>
+  <div class="m-5">
 
-                    <button class="btn btn-info " style="margin-right: 10px;" type="button" (click)="open(content)" >Ver</button>
-                    
+      <a class="btn btn-lg btn-outline-primary" routerLink="/shipping_plan">Realizar Envió</a>
 
-                </td>
-              </tr>
-              
-           
-            </tbody>
-          </table>
-    </div>
-
+  </div>
 
 
 </div>
 
 
-<!--MODAL Envios-->
+<!--TABLA PARA MOSTRAR  BODEGAS Y PUERTOS -->
 
-<ng-template #content let-c="close" let-d="dismiss" >
-    <div class="modal-header" >
-      <h4 class="modal-title" id="modal-basic-title"> Información de Envió </h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body" >
-    
-      <!--datos del cliente-->
-      <div>
+<div class="container mt-5" >
 
-        <h5>Datos del cliente:</h5>
-        <br>
+  <div>
+      <h3>Envios Registrados</h3>
+  </div>
+
+  <div class="row m-4">
+    <label for="filter" class="col-md-2 control-label">Filtro</label> 
+    <input type="text" class="form-control " style="width: 250px;" placeholder="busqueda por dni" [(ngModel)] ="filter" name="filter">
+</div>
+
+  <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">DNI Cliente</th> 
+          <th scope="col">Logistica </th>
+          <th scope="col">Tipo Producto </th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Fecha Registro</th>
+          <th scope="col">Fecha Entrega</th>
+          <th scope="col">Bodega Entrega</th>
+          <th scope="col">Id Vehículo</th>
+          <th scope="col"># guia</th>
+          <th scope="col">Precio Envió</th>
+          
+     
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listShipping | slice: (page-1) * pageSize : page * pageSize | filterShipping:filter  ; index as i ">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.id_client }}   </td>
+          <td>{{item.logistic }}   </td>
+          <td>{{item.type_product}}</td>
+          <td>{{item.quantity}} u</td>
+          <td>{{item.register_date}}</td>
+          <td>{{item.delivery_date}}</td>
+          <td>{{item.cellar_delivery}}</td>
+          <td>{{item.id_transport}}</td>
+          <td>{{item.number_guide}}</td>
+          <td>$ {{item.price}}</td>
+         
+          
         
-        <p><strong> Cliente: </strong> Daniel Guancha </p>
-        <p><strong> Cedula: </strong> 100241616561</p>
-        <p><strong> Pais: </strong> Colombia </p>
-        <p><strong> Provincia: </strong> Nariño</p>
-        <p><strong> Ciudad: </strong> Pasto</p>
-        <p><strong> Domicilio: </strong> carrera 35 #24-24 barrrio santana </p>
-        <p><strong> Codigo Postal: </strong> 520008</p>
-
-
-        <br>
-        <h5>Datos d:</h5>
-        <br>
+        </tr>
         
-        <p><strong> Cliente: </strong> Daniel Guancha </p>
-        <p><strong> Cedula: </strong> 100241616561</p>
-        <p><strong> Pais: </strong> Colombia </p>
-        <p><strong> Provincia: </strong> Nariño</p>
-        <p><strong> Ciudad: </strong> Pasto</p>
-        <p><strong> Domicilio: </strong> carrera 35 #24-24 barrrio santana </p>
-        <p><strong> Codigo Postal: </strong> 520008</p>
+      </tbody>
+    </table>
+
+    <ngb-pagination
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="listShipping.length"></ngb-pagination>
+
+</div>
 
 
-      </div>
 
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cerrar</button>
-    </div>
-  </ng-template>
+
+
+
+
+
+
+
 

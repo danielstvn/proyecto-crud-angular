@@ -6,6 +6,7 @@ import { Service } from 'src/app/service/service.service';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { CellarPorts } from 'src/app/models/cellar_ports/cellar_ports';
 
 
 
@@ -26,6 +27,8 @@ export class ShippingPlanComponent implements OnInit {
   shipping : Shipping = new Shipping();
   formRegisterShipping !: FormGroup;
 
+  cellarPorts !: CellarPorts [];
+
   constructor( public formBuilder:FormBuilder, private service: Service,private modalService: NgbModal, private router: Router) { 
 
     this.formRegisterShipping = this.formBuilder.group({
@@ -35,10 +38,11 @@ export class ShippingPlanComponent implements OnInit {
       register_date: ['', [Validators.required]],
       delivery_date: ['', [Validators.required   ]],
       cellar_delivery: ['', [Validators.required]],
-      id_transport: ['', [Validators.required]],
+      id_transport: ['', [Validators.pattern("[a-zA-Z]{3}[0-9]{4}")]],
+      id_flota: ['', [Validators.pattern("[a-zA-Z]{3}[0-9]{4}[a-zA-Z]{1}")]],
       dni_client: [],
-      price: ['', [Validators.required ,Validators.pattern("[0-9]{6}")]],
-      number_guide: ['', [Validators.required]],
+      price: ['', [Validators.required ,Validators.pattern("[0-9]+")]],
+      number_guide: ['', [Validators.required, Validators.pattern("[0-9]{10}")]],
      
   
     });
@@ -50,6 +54,8 @@ export class ShippingPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.getCellarports();
   }
 
   close(alert: Alert) {
@@ -137,6 +143,13 @@ export class ShippingPlanComponent implements OnInit {
   clearInputs(){
     this.formRegisterShipping.reset(); 
    
+  }
+
+  getCellarports(){
+    this.service.getcellarPorts().subscribe(data => {
+
+      this.cellarPorts = data;
+    });
   }
 
  

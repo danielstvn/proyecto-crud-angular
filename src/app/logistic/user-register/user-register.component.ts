@@ -26,6 +26,12 @@ export class UserRegisterComponent implements OnInit {
   listClient !: Client [];
   infoClient: Client = new Client();
 
+  page = 1;
+  pageSize = 5;
+
+  filterClient ='';
+  sizeListClients !: number;
+
 
   formRegisterClient !: FormGroup;
 
@@ -144,6 +150,8 @@ export class UserRegisterComponent implements OnInit {
 
     this.isSubmited = true;
 
+    this.formRegisterClient.reset();
+
     this.getClient();
   }
 
@@ -151,6 +159,8 @@ export class UserRegisterComponent implements OnInit {
 
     this.service.getClients().subscribe(data =>{
       this.listClient = data;
+
+      this.sizeListClients = this.listClient.length;
     })
 
   }

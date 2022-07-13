@@ -64,9 +64,10 @@
                 <div class="row ">
                     <div class="form-group col">
                         <label for="city">Logistica:</label>
-                        <select class="form-control mt-2" id="city"   [(ngModel)]="shipping.logistic" formControlName="logistic" [class.is-invalid] = "formRegisterShipping.get('logistic')?.hasError('required') && formRegisterShipping.get('logistic')?.touched">
-                            <option selected>Terrestre</option>
-                            <option value="Maritima">Maritima</option>
+                        <select class="form-control mt-2" id="city"  formControlName="logistic" [class.is-invalid] = "formRegisterShipping.get('logistic')?.hasError('required') && formRegisterShipping.get('logistic')?.touched" name="logistic" [(ngModel)]="shipping.logistic">
+                            
+                            <option value="Maritima" selected>Maritima</option>
+                            <option value="Terrestre">Terrestre</option>
                     
                         </select>
 
@@ -142,14 +143,33 @@
 
                     <!--Bodega de entrega-->
 
-                    <div class="form-group col">
+                    <div class="form-group col" *ngIf=" shipping.logistic== 'Terrestre' ">
 
                         <label for="cellar_delivery">Bodega de entrega:</label>
-                        <select class="form-control mt-2" id="cellar-delivery" name="cellar_delivery"   [(ngModel)]="shipping.cellar_delivery" formControlName="cellar_delivery" [class.is-invalid] = "formRegisterShipping.get('cellar_delivery')?.hasError('required') && formRegisterShipping.get('cellar_delivery')?.touched">
-                            <option selected>--- </option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-control mt-2" id="cellar-delivery" name="cellar_delivery"   [(ngModel)]="shipping.cellar_delivery" formControlName="cellar_delivery" [class.is-invalid] = "formRegisterShipping.get('cellar_delivery')?.hasError('required') && formRegisterShipping.get('cellar_delivery')?.touched"   >
+                            <option [value]="item.name" *ngFor="let item of cellarPorts | filtercellarPorts:shipping.logistic" > 
+
+                                    {{item.name}}
+                            </option>
+                           
+                        </select>
+
+                        <small *ngIf="formRegisterShipping.get('cellar_delivery')?.hasError('required') && formRegisterShipping.get('cellar_delivery')?.touched"> Este Campo es requerido</small>
+                        
+                    </div>
+
+
+                    <!--Bodega de entrega-->
+
+                    <div class="form-group col" *ngIf=" shipping.logistic== 'Maritima' ">
+
+                        <label for="cellar_delivery">Puerto de entrega:</label>
+                        <select class="form-control mt-2" id="cellar-delivery" name="cellar_delivery"   [(ngModel)]="shipping.cellar_delivery" formControlName="cellar_delivery" [class.is-invalid] = "formRegisterShipping.get('cellar_delivery')?.hasError('required') && formRegisterShipping.get('cellar_delivery')?.touched"  >
+                            <option [value]="item.name" *ngFor="let item of cellarPorts | filtercellarPorts:shipping.logistic" > 
+
+                                {{item.name}}
+                        </option>
+                           
                         </select>
 
                         <small *ngIf="formRegisterShipping.get('cellar_delivery')?.hasError('required') && formRegisterShipping.get('cellar_delivery')?.touched"> Este Campo es requerido</small>
@@ -176,22 +196,41 @@
                <!---->
 
                      
-                <div class="row mt-4 ">
+                <div class="row mt-4 "  >
 
-                    <div class="form-group col">
+                    <div class="form-group col" *ngIf="shipping.logistic == 'Terrestre'">
                         <label for="id_transport">Placas del vehículo:</label>
+                        <label for="id_transport" *ngIf="shipping.logistic == 'Maritima'">Numero de Flota:</label>
                         <input type="text" id="id_transport" class="form-control mt-2" name="id_transport"  [(ngModel)]="shipping.id_transport" formControlName="id_transport" 
-                        [class.is-invalid] = "formRegisterShipping.get('id_transport')?.hasError('required') && formRegisterShipping.get('id_transport')?.touched">
+                        [class.is-invalid] = "formRegisterShipping.get('id_transport')?.hasError('required') && formRegisterShipping.get('id_transport')?.touched &&formRegisterShipping.get('id_transport')?.hasError('pattern')" [value]="shipping.id_transport">
 
                         <small *ngIf="formRegisterShipping.get('id_transport')?.hasError('required') && formRegisterShipping.get('id_transport')?.touched"> Este Campo es requerido</small>
+
+                        <small *ngIf="formRegisterShipping.get('id_transport')?.hasError('pattern') && formRegisterShipping.get('id_transport')?.touched"> El formato debe corresponder a 3 letras iniciales, seguidas de 4 números</small>
                         
                     </div>
+
+
+                    <div class="form-group col" *ngIf="shipping.logistic == 'Maritima'">
+           
+                        <label for="id_transport" >Numero de Flota:</label>
+                        <input type="text" id="id_transport" class="form-control mt-2" name="id_transport"  [(ngModel)]="shipping.id_transport" formControlName="id_flota" 
+                        [class.is-invalid] = "formRegisterShipping.get('id_flota')?.hasError('required') && formRegisterShipping.get('id_flota')?.touched &&formRegisterShipping.get('id_flota')?.hasError('pattern')" [value]="shipping.id_transport">
+
+                        <small *ngIf="formRegisterShipping.get('id_flota')?.hasError('required') && formRegisterShipping.get('id_flota')?.touched"> Este Campo es requerido</small>
+
+                        <small *ngIf="formRegisterShipping.get('id_flota')?.hasError('pattern') && formRegisterShipping.get('id_flota')?.touched"> El formato debe corresponder a 3 letras iniciales, seguidas de 4 números y finalizando con una letra</small>
+                        
+                    </div>
+
     
                     <div class="form-group col">
                         <label for="num_guide">Numero de guía:</label>
-                        <input type="text"   id="postal_code" class="form-control mt-2" name="num_guide" [(ngModel)]="shipping.number_guide" formControlName="number_guide" [class.is-invalid] = "formRegisterShipping.get('number_guide')?.hasError('required') && formRegisterShipping.get('number_guide')?.touched">
+                        <input type="text"   id="num_guide" class="form-control mt-2" name="num_guide" [(ngModel)]="shipping.number_guide" formControlName="number_guide" [class.is-invalid] = "formRegisterShipping.get('number_guide')?.hasError('required') && formRegisterShipping.get('number_guide')?.touched && formRegisterShipping.get('number_guide')?.hasError('pattern')" name="number_guide">
 
                         <small *ngIf="formRegisterShipping.get('number_guide')?.hasError('required') && formRegisterShipping.get('number_guide')?.touched"> Este Campo es requerido</small>
+
+                        <small *ngIf="formRegisterShipping.get('number_guide')?.hasError('pattern') && formRegisterShipping.get('number_guide')?.touched">Numero único alfanumérico de 10 dígitos</small>
 
                     </div>
                     
@@ -200,11 +239,11 @@
                 <div class="card-footer mt-5">
 
 
-                    <div *ngIf="formRegisterShipping.invalid ">
+                    <div *ngIf="formRegisterShipping.invalid  || shipping.id_transport==null">
                         <ngb-alert [type]="alerts[3].type" (closed)="close(alerts[3])">{{ alerts[3].message }}</ngb-alert>
                     </div>
         
-                    <div *ngIf="formRegisterShipping.valid ">
+                    <div *ngIf="formRegisterShipping.valid || shipping.id_transport!=null">
                         <ngb-alert [type]="alerts[1].type" (closed)="close(alerts[1])">{{ alerts[1].message }}</ngb-alert>
                     </div>
         
@@ -213,7 +252,7 @@
 
                         <a class="btn btn-lg btn-outline-secondary col" (click)="clearInputs()" style="margin-right: 20px;" (closed)="close(alerts[5])">Limpiar Campos</a>
 
-                        <a class="btn btn-lg btn-outline-warning col"  [class.disabled]="formRegisterShipping.invalid" (click)="open(content)" style="margin-left: 20px;">Continuar</a>
+                        <a class="btn btn-lg btn-outline-warning col"  [class.disabled]="formRegisterShipping.invalid || shipping.id_transport==''  || shipping.id_transport==null" (click)="open(content)" style="margin-left: 20px;">Continuar</a>
                     
                        
                     </div> 
@@ -289,7 +328,8 @@
               </tr>
 
               <tr>
-                <th scope="row">Placas del vehículo:</th>
+                <th scope="row" *ngIf="shipping.logistic == 'Terrestre'">Placas del vehículo:</th>
+                <th scope="row" *ngIf="shipping.logistic == 'Maritima'">Numero de Flota:</th>
                 <td colspan="2">{{shipping.id_transport}} </td>
     
               </tr>

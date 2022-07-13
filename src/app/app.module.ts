@@ -13,10 +13,13 @@ import { ShippingPlanComponent } from './logistic/shipping-plan/shipping-plan.co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowCellarPortsComponent } from './cellar_ports/show-cellar-ports/show-cellar-ports.component';
 import { IndexShippingComponent } from './shipping/index-shipping/index-shipping.component';
-import { ShowShippingComponent } from './shipping/show-shipping/show-shipping.component';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FilterPipe } from './pipe/filter_client/filter.pipe';
+import { FilterShippingPipe } from './pipe/filter_shipping/filter-shipping.pipe';
+import { FiltercellarPortsPipe } from './pipe/filter_cellarPorts/filtercellar-ports.pipe';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import { RouterModule } from '@angular/router';
 
     ShowCellarPortsComponent,
      IndexShippingComponent,
-     ShowShippingComponent,
+     FilterPipe,
+     FilterShippingPipe,
+     FiltercellarPortsPipe,
+
 
   ],
   imports: [

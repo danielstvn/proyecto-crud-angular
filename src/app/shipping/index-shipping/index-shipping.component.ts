@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Shipping } from 'src/app/models/shipping/shipping';
+import { Service } from 'src/app/service/service.service';
 
 @Component({
   selector: 'app-index-shipping',
@@ -8,10 +10,16 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class IndexShippingComponent implements OnInit {
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    // customize default values of modals used by this component tree
-    config.backdrop = 'static';
-    config.keyboard = false;
+
+  shipping : Shipping = new Shipping();
+  listShipping !: Shipping [];
+  
+  page = 1;
+  pageSize = 5;
+
+  filter ='';
+  constructor(config: NgbModalConfig, private modalService: NgbModal,private service:Service) {
+  
   }
 
   open(content:any) {
@@ -20,6 +28,16 @@ export class IndexShippingComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.getListSgipping();
+  }
+
+  getListSgipping(){
+
+    this.service.getListShipping().subscribe(data =>{
+
+      this.listShipping = data;
+    });
   }
 
 }

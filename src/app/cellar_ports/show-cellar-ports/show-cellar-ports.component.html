@@ -1,285 +1,341 @@
 <div class="container">
 
-    <div class="mt-5">
-        <button class="btn btn-info" (click)="open(content)" type="button">Crear un nuevo registro</button>
-    </div>
+  <div class="m-5">
+
+      <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Agregar Puerto / Bodega</button>
+
+  </div>
 
 
-    <div class="card mt-5">
-        <table class="table tabble-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre Bodega / Puerto</th>
-                <th scope="col">Almacenamiento</th>
-                <th scope="col">Pais</th>
-                <th scope="col">Ubicación</th>
-                <th scope="col">Disponibilidad</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>
-
-                    <button class="btn btn-warning " style="margin-right: 10px;" type="button" (click)="open(contentEdit)" >Editar</button>
-                    <button class="btn btn-danger " type="button" (click)="open(contentDelete)" >Eliminar</button> 
-
-                </td>
-              </tr>
-              
-           
-            </tbody>
-          </table>
-    </div>
-
+ 
 
 
 </div>
 
 
-<!--MODAL REGISTRO DE BODEGAS Y PUERTOS-->
+<!--TABLA PARA MOSTRAR  BODEGAS Y PUERTOS -->
 
-<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Registro de Bodegas y Puertos</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
+<div class="container mt-5" >
+
+  <div>
+      <h3>Bodegas y Puertos Registrados</h3>
+  </div>
+
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tipo</th> 
+          <th scope="col">Nombre </th>
+          <th scope="col">Ubicación</th>
+          <th scope="col">Pais</th>
+          <th scope="col">Disponibilidad</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cellar_port of listCellarPorts ; index as i">
+          <th scope="row">{{i+1}}</th>
+          <td>{{cellar_port.type }}   </td>
+          <td>{{cellar_port.name }}   </td>
+          <td>{{cellar_port.location}}</td>
+          <td>{{cellar_port.country}}</td>
+          <td  *ngIf="cellar_port.availability">Activo</td>
+          <td  *ngIf="!cellar_port.availability">Inactivo</td>
+          <td>    
+
+              <button class="btn btn-lg btn-outline-primary" (click)="openShow(contentShow,cellar_port.id)">Ver</button>
+
+              <button class="btn btn-lg btn-outline-warning" style="margin-left:10px ; margin-right: 10px;" (click)="openEdit(contentEdit,cellar_port.id)">Editar</button>
+
+              <button class="btn btn-lg btn-outline-danger" (click)="openDelete(contentDelete,cellar_port.id)">Eliminar</button>
+
+          </td>
+        
+        </tr>
+        
+      </tbody>
+    </table>
+
+</div>
+
+
+
+<!--MODAL DE REGISTRO DE BODEGAS Y PUERTOS-->
+<ng-template #content let-modal>
+  <div >
+      <form [formGroup]="formRegistercellarPort"  class="form" method="POST" (ngSubmit) ="onSubmit()"    novalidate >  
       
-        <form>
-            <div class="form-row">
-
-                <!--selector de tipo de transporte-->
-                <div class="form-group col-md-10">
-                    <label for="inputState">Tipo de Almacenamiento</label>
-                    <select id="inputState" class="form-control">
-                      <option selected>Bodega</option>
-                      <option>Puerto</option>
-                    </select>
-                  </div>
-
-                   <!--registro de codigo bodega -puerto-->
-                <div class="form-group col-md-10 mt-4">
-                    <label for="location">Codigo Bodega / Puerto</label>
-                    <input type="text" class="form-control " id="location"  name="location" required >
-                </div>
-
-
-                <!--Nombre de la bodega-->
-                <div class="form-group col-md-10 mt-4">
-                    <label for="name">Nombre Bodega / Puerto</label>
-                    <input type="text" class="form-control " id="name" required >
-                </div>
-
-
-                <!--Registro de pais provincia y ciudad -->
-                <div class="row mt-4">
-
-                    <div class="form-group col">
-
-                        <label for="country">Pais:</label>
-                        <select class="form-control mt-2" id="country" name="country" required>
-                            <option selected>Pais</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
+          <div class="card mt-5">
+              <legend class="text-center header mt-3">Datos Bodega / Puerto</legend>
+  
+              <div class="card-body">
+                  
+                      <div class="row">
+  
+                        <div class="form-group col">
     
-                    <div class="form-group col">
+                          <label for="type">Tipo</label>
+                          <select class="form-control mt-2" [(ngModel)]="cellarPort.type" formControlName="type" id="type" name="type" [class.is-invalid] = "formRegistercellarPort.get('type')?.hasError('required') && formRegistercellarPort.get('type')?.touched">
+                              <option selected>Bodega</option>
+                              <option value="Puerto">Puerto</option>
+                              
+                          </select>
 
-                        <label for="province">Provincia:</label>
-                        <select class="form-control mt-2" id="province" name="province" required>
-                            <option selected>Provincia</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-
-                    <div class="form-group col">
-
-                        <label for="city">Ciudad:</label>
-                        <select class="form-control mt-2" id="city" name="city" required>
-                            <option selected>ciudad</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-                </div>
-
-                 <!--registro de ubicacion bodega -puerto-->
-                 <div class="form-group col-md-10 mt-4">
-                    <label for="location">Ubicación Bodega / Puerto</label>
-                    <input type="text" class="form-control " id="location"  name="location" required >
-                </div>
-
-                 <!--selector de tipo de disponibilidad-->
-                 <div class="form-group col-md-10 mt-4">
-                    <label for="inputState">Disponibilidad</label>
-                    <select id="inputState" class="form-control">
-                      <option selected>Nacional</option>
-                      <option>Internacional</option>
-                    </select>
-                  </div>
-
-              
-            </div>
-           
-          </form>
-
-
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Guardar</button>
-    </div>
-  </ng-template>
-
-
-
-<!--MODAL EDICION DE BODEGAS Y PUERTOS-->
-
-<ng-template #contentEdit let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Actualizar Bodegas y Puertos</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
+                          <small *ngIf="formRegistercellarPort.get('type')?.hasError('required') && formRegistercellarPort.get('type')?.touched"> Este Campo es requerido</small>
+                          
+                      </div>
       
-        <form>
-            <div class="form-row">
+          
+                          <div class="form-group col">
+                              <label for="name">Nombre:</label>
+                              <input type="text" [(ngModel)]="cellarPort.name" formControlName="name" [class.is-invalid] = "formRegistercellarPort.get('name')?.hasError('required') && formRegistercellarPort.get('name')?.touched"  class="form-control mt-2" id="name" name="name" >
+  
+                              <small *ngIf="formRegistercellarPort.get('name')?.hasError('required') && formRegistercellarPort.get('name')?.touched"> Este Campo es reqcellarPort.uerido</small>
+                          </div>
+  
+                      </div>
+  
+  
+                      
+                      <div class="row mt-4">
+  
+                          <div class="form-group col">
+                              <label for="country">Pais:</label>
+                              <input type="text" [(ngModel)]="cellarPort.country" formControlName="country" [class.is-invalid] = "formRegistercellarPort.get('country')?.hasError('required') && formRegistercellarPort.get('country')?.touched "  id="country" class="form-control mt-2" name="country" >
+  
+                              <small *ngIf="formRegistercellarPort.get('country')?.hasError('required') &&formRegistercellarPort.get('country')?.touched"> Este Campo es requerido</small>
+                              
+                              
+                          </div>
 
-                <!--selector de tipo de transporte-->
-                <div class="form-group col-md-10">
-                    <label for="inputState">Tipo de Almacenamiento</label>
-                    <select id="inputState" class="form-control">
-                      <option selected>Bodega</option>
-                      <option>Puerto</option>
-                    </select>
+                          <div class="form-group col">
+                            <label for="location">Dirección:</label>
+                            <input type="location" [(ngModel)]="cellarPort.location" formControlName="location" class="form-control mt-2" id="location" name="location" [class.is-invalid] = "formRegistercellarPort.get('location')?.hasError('required') && formRegistercellarPort.get('location')?.touched ">
+
+                            <small *ngIf="formRegistercellarPort.get('location')?.hasError('required')  && formRegistercellarPort.get('location')?.touched"> Este Campo es requerido</small>
+                            
+                           
+                        </div>
+          
+                          
+                          
+                      </div>  
+
+
+                      <div class="row mt-4">
+                        <div class="form-group col">
+                          <label for="availability">Estado:</label>
+                          <input  [(ngModel)]="cellarPort.availability" formControlName="availability" class="form-control mt-2 form-check-input" 
+                           type="checkbox" id="availability" name="availability" style="width: 100px; height: 30px;"  checked>
+
+                              
+                         </div>
+                      </div>
+  
+                     
+                               
+                  
+              </div>
+  
+              <div class="card-footer ">
+  
+                  <div *ngIf="formRegistercellarPort.invalid ">
+                      <ngb-alert [type]="alerts[2].type" (closed)="close(alerts[2])">{{ alerts[2].message }}</ngb-alert>
                   </div>
-
-                   <!--registro de codigo bodega -puerto-->
-                <div class="form-group col-md-10 mt-4">
-                    <label for="location">Codigo Bodega / Puerto</label>
-                    <input type="text" class="form-control " id="location"  name="location" required >
-                </div>
-
-
-                <!--Nombre de la bodega-->
-                <div class="form-group col-md-10 mt-4">
-                    <label for="name">Nombre Bodega / Puerto</label>
-                    <input type="text" class="form-control " id="name" required >
-                </div>
-
-
-                <!--Registro de pais provincia y ciudad -->
-                <div class="row mt-4">
-
-                    <div class="form-group col">
-
-                        <label for="country">Pais:</label>
-                        <select class="form-control mt-2" id="country" name="country" required>
-                            <option selected>Pais</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-    
-                    <div class="form-group col">
-
-                        <label for="province">Provincia:</label>
-                        <select class="form-control mt-2" id="province" name="province" required>
-                            <option selected>Provincia</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-
-                    <div class="form-group col">
-
-                        <label for="city">Ciudad:</label>
-                        <select class="form-control mt-2" id="city" name="city" required>
-                            <option selected>ciudad</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        
-                    </div>
-                </div>
-
-                 <!--registro de ubicacion bodega -puerto-->
-                 <div class="form-group col-md-10 mt-4">
-                    <label for="location">Ubicación Bodega / Puerto</label>
-                    <input type="text" class="form-control " id="location"  name="location" required >
-                </div>
-
-                 <!--selector de tipo de disponibilidad-->
-                 <div class="form-group col-md-10 mt-4">
-                    <label for="inputState">Disponibilidad</label>
-                    <select id="inputState" class="form-control">
-                      <option selected>Nacional</option>
-                      <option>Internacional</option>
-                    </select>
+  
+                  <div class="col-md-12 text-center mt-3" *ngIf="isSubmited == false">
+  
+                      <button type="submit" class="btn btn-primary btn-lg" [disabled] = 'formRegistercellarPort.invalid'  [attr.aria-expanded]="!isCollapsed"
+                      aria-controls="collapseExample" >Guardar Datos</button>
+  
+                      <!---->
+          
                   </div>
-
-              
-            </div>
-           
-          </form>
-
-
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Guardar</button>
-    </div>
-  </ng-template>
-
-
-  <!--MODAL EDICION DE BODEGAS Y PUERTOS-->
-
-<ng-template #contentDelete let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Confirmación de Eliminación</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
+  
+                 
+              </div>
+  
       
-        <form>
-            <div class="form-row">
+          </div>
+      </form>
+  
+      <div class="col-md-12 text-center mt-3"   *ngIf="isSubmited == true">
+  
+          <ngb-alert [type]="alerts[0].type" (closed)="close(alerts[0])">{{ alerts[0].message }}</ngb-alert>
+  
+         
+  
+         
+      </div>
+  
+  
+  
+  
+  
+  </div>
+  
+      
+</ng-template>
 
-                <!--selector de tipo de transporte-->
-                <div class="form-group col-md-10">
-                   <h5>Esta seguro de eliminar el registro ?</h5>
-                  </div>          
-            </div>
-           
-          </form>
+<!--MODAL DEL SHOW cellar_port-->
+
+<ng-template #contentShow let-modal>
+
+  <div class="container">
+
+      <div class="m-5">
+          <h2>Información del cellar_porte  N° {{infocellarPort.id}}</h2>
+      </div>
+
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Nombres</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [value]="infocellarPort.name" readonly />
+          </div>
+
+      </div>
+      
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Apellidos</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [value]="infocellarPort.location" readonly />
+          </div>
+          
+      </div> 
+
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Dni</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [value]="infocellarPort.country" readonly />
+          </div>
+          
+      </div> 
+
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Teléfono</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [value]="infocellarPort.availability" readonly />
+          </div>
+          
+      </div> 
+
+     
+
+        
+  </div>
+
+  <div class="modal-footer">
+
+      <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Cerrar</button>
+  </div>
+
+</ng-template>
+
+<!--MODAL DEL EDIT cellar_port-->
+
+<ng-template #contentEdit let-modal>
 
 
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')" style="margin-right: 10px;">Cancelar</button>
-      <button type="button" class="btn btn-danger" (click)="c('Save click')">Eliminar</button>
-    </div>
-  </ng-template>
+<form action="" (ngSubmit)="onUpdate(infocellarPort.id)" >
+
+  <div class="container">
+
+      <div class="m-5">
+          <h2>Actualización de Datos </h2>
+      </div>
+
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Tipo:</label>
+          <div class="col-sm-10">
+            <select class="form-control mt-2" [(ngModel)]="infocellarPort.type" [value]="infocellarPort.type" name="type">
+              <option selected>Bodega</option>
+              <option value="Puerto">Puerto</option>
+              
+          </select>
+          </div>
+
+      </div>
+      
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Nombre:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [value]="infocellarPort.name" [(ngModel)]="infocellarPort.name" name="name"/>
+          </div>
+          
+      </div> 
+
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Pais</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [value]="infocellarPort.country" 
+            [(ngModel)]="infocellarPort.country" name="country" />
+          </div>
+          
+      </div> 
+
+      <div class="form-group row m-3">
+
+          <label  class="col-sm-2 col-form-label">Dirección</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [value]="infocellarPort.location" 
+            [(ngModel)]="infocellarPort.location" name="location"/>
+          </div>
+          
+      </div> 
+
+      <div class="form-group row m-3">
+
+        <label for="availability" class="col-sm-2 col-form-label">Estado:</label>
+        <input  [(ngModel)]="infocellarPort.availability"  class=" form-control form-check-input m-3" 
+        type="checkbox" id="availability" name="availability" style="width: 100px; height: 30px;"  [checked]="infocellarPort.availability">
+      </div>
+
+      
+
+
+        
+  </div>
+
+  <div class="modal-footer">
+
+      <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">Guardar los Cambios</button>
+  </div>
+
+</form>
+</ng-template>
+
+<!--MODAL ELIMINAR-->
+
+<ng-template #contentDelete let-modal>
+
+  <div class="modal-header">
+      <h2>Confirmación de Eliminación</h2>
+  </div>
+
+  <div class="modal-body">
+
+      ¿Esta seguro de Eliminar : {{infocellarPort.type }}   <strong>{{infocellarPort.name }}   </strong> ? 
+
+  </div>
 
   
+  <div class="modal-footer">
+  
+      <button type="submit" class="btn btn-outline-danger" (click)="modal.close('Save click')"  (click)="deletecellar_port(infocellarPort.id)"> Eliminar {{infocellarPort.type }} </button>
+  </div>
+  
+
+  </ng-template>
+
+
+
+
 
